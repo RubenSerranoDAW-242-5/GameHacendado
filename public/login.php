@@ -26,9 +26,14 @@
                 session_start();
                 $_SESSION['email'] = $resultado['email'];
                 $_SESSION['rol'] = $resultado['rol'];
-
-                header("Location: index.php?email=&&email=" . $resultado['email'] .
+                if ($resultado['rol']==="admin") {
+                    header("../admin/index.php?email=&&email=" . $resultado['email'] .
                     "&&rol=" . $resultado['rol']);
+                }else{
+                    header("Location:/index.php?email=&&email=" . $resultado['email'] .
+                    "&&rol=" . $resultado['rol']);
+                }
+                
             } else if ($resultado['contraseña'] != $contraBD || $resultado['email'] != $usuarioBD) {
                 $errorMessage = "Usuario o Contraseña son incorrectos";
             } else {

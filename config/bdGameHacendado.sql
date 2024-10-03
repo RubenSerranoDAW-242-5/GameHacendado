@@ -16,6 +16,7 @@ CREATE TABLE
 INSERT INTO Usuario (nombre, apellido, email, dni, contraseña, rol, direccion, telefono)
 VALUES
     ('Juan', 'Pérez', 'juan.perez@example.com', '12345678A', 'password123', 'admin', 'Calle Falsa 123, Madrid', '+34 600 123 456'),
+    ('Juan', 'Pérez', 'juan.perez@example.com', '12345678A', 'password123', 'admin', 'Calle Falsa 123, Madrid', '+34 600 123 456'),
     ('Ana', 'García', 'ana.garcia@example.com', '87654321B', 'anaSecure!1', 'usuario', 'Av. Siempreviva 456, Barcelona', '+34 600 654 321'),
     ('Carlos', 'Sánchez', 'carlos.sanchez@example.com', '34567890C', 'carlosPass!', 'usuario', 'Plaza Mayor 789, Sevilla', '+34 600 987 654'),
     ('Lucía', 'Fernández', 'lucia.fernandez@example.com', '23456789D', 'luciaPassword!', 'admin', 'Calle del Sol 987, Valencia', '+34 600 321 987'),
@@ -57,7 +58,8 @@ CREATE TABLE
     Carta (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         nombreCarta VARCHAR(255) NOT NULL UNIQUE,
-        costeCarta INT NOT NULL,
+        tipoCarta VARCHAR(50) NOT NULL,
+        costeCarta VARCHAR(20),
         color VARCHAR(50) NOT NULL,
         codigoCarta VARCHAR(50) NOT NULL UNIQUE,
         precioCarta DECIMAL(10,2) NOT NULL,
@@ -66,14 +68,40 @@ CREATE TABLE
         FOREIGN KEY (idLineaPedido) REFERENCES LineaPedidos (id)
     );
 -- cambiar url imagen por una url global(de htcdocs a la carpeta images) y en la  bd poner solo nombre imagen
-INSERT INTO Carta(nombreCarta,costeCarta,color,codigoCarta,precioCarta,img) VALUES 
-            ("Buu, Unlimited Majin",8,"Azul","BT25-146 SCR",110.00,"../images/buuazul.png"),
-            ("SS Gogeta, Fusion Reborn",8,"Azul/Amarillo","BT22-140 SCR",60.00,"../images/gogetabi.png"),
-            ("SSB Gogeta, Shining Blue Strongest Warrior",8,"Azul","BT26-138 SCR",170.00,"../images/gogetablue.png"),
-            ("SS4 Gogeta, Unrivaled Sparking",8,"Amarillo","BT25-147 SCR",140.00,"../images/gogetass4ama.png"),
-            ("Ultra Instinct Son Goku, State of the Gods",8,"Amarillo","BT23-140 SCR",115.00,"../images/ultradistinto.png"),
-            ("SSB kaio-Ken Vegito,Blue Potara-Fusion Warrior Champion",8,"Negra","BT24-139 SCR",85.00,"../images/vegitobluexeno.png"),
-            ("SS4 Vegito, A Light in the Dark",8,"Roja","BT18-139 SCR",100.00,"../images/vegitoss4rojo.png");
+INSERT INTO Carta(nombreCarta,tipoCarta,costeCarta,color,codigoCarta,precioCarta,img) VALUES 
+            ("Buu, Unlimited Majin","Battle Card","8","Azul","BT25-146",110.00,"21.png"),
+            ("Android 21, Transcendental Predator","Battle Card","4","Azul/Verde","BT20-149",110.00,"buuazul.png"),
+            ("SS4: The Vermilion Saiyans","Extra Card","1","Negro","BT15-152",110.00,"vermilion.png"),
+            ("Vegito, Warrior From Another Dimension","Unison Card","X","Negro","BT11-154",110.00,"vegitounison.png"),
+            ("Power of Potara - Vegito, Kefla & Zamasu","Battle Card","8","Azul/Amarillo","BT7-131",110.00,"vegitobi.png"),
+            ("Vegeta, Awakened Feelings","Leader Card","","Rojo","BT24-001",110.00,"vegetarojolider.png"),
+            ("Perfected Ultra Instinct Son Goku, Transcendence","Battle Card","10","Negro","BT26-140",110.00,"ultradistintonegro.png"),
+            ("SS Trunks, Tournament Battle to the Death","Leader Card","","Verde","BT25-070",110.00,"trankaslider.png"),
+            ("Tapion, Hero Revived in the Present","Leader Card","","Azul","BT24-025",110.00,"tapionetalider.png"),
+            ("SS Son Goku, Beginning of a Legend","Leader Card","","Verde","BT24-055",110.00,"superkokunlider.png"),
+            ("King Piccolo, Final Stage of Conquest","Leader Card","","Rojo","BT25-002",110.00,"piccolodaimaolider.png"),
+            ("Super Mira, Diabolical Fusion","Unison Card","X","Amarillo","BT16-002",110.00,"miraunison.png"),
+            ("SS4 Vegito, Sparking Potara Warrior","Leader Card","","Negro","BT24-112",110.00,"lidervegito4.png"),
+            ("Cell Xeno, Unspeakable Abomination","Battle Card","12","Amarillo/Verde","BT9-137",110.00,"kuka.png"),
+            ("Son Goku, Face-Off With the Great Demon king","Leader Card","","Rojo","BT25-001",110.00,"kokunkidlider.png"),
+            ("Son Goku, Apex of the Origin","Battle Card","7","Negro","BT25-148",110.00,"kokunfrezernegro.png"),
+            ("Son Goku, Fist of Fate","Battle Card","8","Rojo","BT25-145",110.00,"kidkurojo.png"),
+            ("Supreme Kai of Time, Brainwashed","Battle Card","8","Negro","BT16-149",110.00,"kailavado.png"),
+            ("Heroines' Lineage","Extra Card","1","Negro","EB1-68",110.00,"Heroines.png"),
+            ("SS3 Gohanks, Interdimensional Warrior","Unison Card","X","Rojo","BT13-153",110.00,"gohanksunison.png"),
+            ("Bursting Rage","Extra Card","0","Rojo","BT22-138",110.00,"gohanextra.png"),
+            ("SS4 Gogeta, Strongest Fusion Explosion","Leader Card","","Amarillo","BT25-098",110.00,"gogetalider.png"),
+            ("Frieza, Scourge of Saiyans","Leader Card","","Verde","BT24-056",110.00,"freezerlider.png"),
+            ("Metamorphic Android Cell","Battle Card","10","Verde","BT26-139",110.00,"cellverde.png"),
+            ("Majin Buu, Shape-Shifter","Leader Card","","Azul","BT25-037",110.00,"buulider.png"),
+            ("Boujack, Crashingg the Tournament","Leader Card","","Verde","BT25-037",110.00,"bojaklider.png"),
+            ("Son Gohan, Beyond the Ultimate","Battle Card","8","Azul","BT19-152",110.00,"bestia.png"),
+            ("SS Gogeta, Fusion Reborn","Battle Card","8","Azul/Amarillo","BT22-140",60.00,"gogetabi.png"),
+            ("SSB Gogeta, Shining Blue Strongest Warrior","Battle Card","8","Azul","BT26-138",170.00,"gogetablue.png"),
+            ("SS4 Gogeta, Unrivaled Sparking","Battle Card","8","Amarillo","BT25-147",140.00,"gogetass4ama.png"),
+            ("Ultra Instinct Son Goku, State of the Gods","Battle Card","8","Amarillo","BT23-140",115.00,"ultradistinto.png"),
+            ("SSB kaio-Ken Vegito,Blue Potara-Fusion Warrior Champion","Battle Card","8","Negro","BT24-139",85.00,"vegitobluexeno.png"),
+            ("SS4 Vegito, A Light in the Dark","Battle Card","8","Roja","BT18-139",100.00,"vegitoss4rojo.png");
 
 SELECT * FROM Carta;
 
@@ -93,7 +121,7 @@ INSERT INTO Categorias(categoria) VALUES
             ("Dual Attack"),
             ("Quadruple Strike"),
             ("Barrier"),
-            ("Victory Strike");
+            ("Victory Strike"),;
 
 -- Tabla de categoria mucho a muchos 
 DROP TABLE IF EXISTS CategoriasCartas;
