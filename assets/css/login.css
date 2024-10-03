@@ -1,11 +1,23 @@
+#logo {
+    display: block;
+    margin: 0 auto 20px; 
+    width: 250px; 
+    height: auto; 
+    border-radius: 5px; 
+    box-shadow: 0px 2px 10px rgba(0, 123, 255, 0.2); 
+}
+
+
 #formLogin {
     width: 320px;
     margin: 50px auto;
     padding: 20px;
     background-color: #ffffff;
-    border: 1px solid #00bfff; /* Azul claro */
+    border: 1px solid #00bfff;
+
     border-radius: 8px;
-    box-shadow: 0px 2px 10px rgba(0, 123, 255, 0.2); /* Sombra azul suave */
+    box-shadow: 0px 2px 10px rgba(0, 123, 255, 0.2);
+
     font-family: Arial, sans-serif;
 }
 
@@ -13,36 +25,42 @@
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
-    color: #007bff; /* Azul oscuro */
+    color: #007bff;
+
 }
 
-/* Input Styling */
+
 #formLogin input[type="text"],
 #formLogin input[type="password"] {
     width: 100%;
     padding: 12px;
     margin-bottom: 20px;
-    border: 1px solid #00bfff; /* Azul claro */
+    border: 1px solid #00bfff;
+
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 15px;
-    background-color: #f0f8ff; /* Fondo azul muy claro */
+    background-color: #f0f8ff;
+
     color: #333;
 }
 
-/* Input Focus */
+
 #formLogin input[type="text"]:focus,
 #formLogin input[type="password"]:focus {
-    border-color: #007bff; /* Azul oscuro en foco */
+    border-color: #007bff;
+
     outline: none;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Sombra azul intenso */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+
 }
 
-/* Button Styling */
+
 #formLogin input[type="submit"] {
     width: 100%;
     padding: 12px;
-    background-color: #007bff; /* Azul oscuro */
+    background-color: #007bff;
+
     border: none;
     color: white;
     font-size: 16px;
@@ -51,14 +69,25 @@
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Button Hover Effect */
 #formLogin input[type="submit"]:hover {
-    background-color: #0056b3; /* Azul más oscuro en hover */
-    box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.4); /* Sombra más pronunciada */
+    background-color: #0056b3;
+    box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.4);
 }
 
-/* General Text Styling */
 #formLogin input[type="text"]::placeholder,
 #formLogin input[type="password"]::placeholder {
-    color: #00bfff; /* Azul claro para los placeholders */
+    color: #00bfff;
+}
+
+#mensajeError {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ffe6e6; 
+    border: 1px solid red; 
+    border-radius: 5px; 
+    text-align: center; 
+    box-shadow: 0px 2px 8px rgba(255, 0, 0, 0.2);
 }

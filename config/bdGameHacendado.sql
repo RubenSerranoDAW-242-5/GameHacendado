@@ -65,7 +65,7 @@ CREATE TABLE
         idLineaPedido BIGINT,
         FOREIGN KEY (idLineaPedido) REFERENCES LineaPedidos (id)
     );
-
+-- cambiar url imagen por una url global(de htcdocs a la carpeta images) y en la  bd poner solo nombre imagen
 INSERT INTO Carta(nombreCarta,costeCarta,color,codigoCarta,precioCarta,img) VALUES 
             ("Buu, Unlimited Majin",8,"Azul","BT25-146 SCR",110.00,"../images/buuazul.png"),
             ("SS Gogeta, Fusion Reborn",8,"Azul/Amarillo","BT22-140 SCR",60.00,"../images/gogetabi.png"),
