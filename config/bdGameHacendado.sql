@@ -30,7 +30,7 @@ CREATE TABLE
     Pedidos (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         fecha DATETIME NOT NULL,
-        precioTotal DOUBLE NOT NULL,
+        precioTotal DECIMAL(10,2) NOT NULL,
         direccionEnvio VARCHAR(800) NOT NULL,
         idUsuario BIGINT NOT NULL,
         FOREIGN KEY (idUsuario) REFERENCES Usuario (id)
@@ -44,7 +44,7 @@ CREATE TABLE
     LineaPedidos (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         cantidad INT NOT NULL,
-        precioTotalLinea DOUBLE NOT NULL,
+        precioTotalLinea DECIMAL(10,2) NOT NULL,
         idPedido BIGINT NOT NULL,
         FOREIGN KEY (idPedido) REFERENCES Pedidos (id)
     );
@@ -59,24 +59,13 @@ CREATE TABLE
         costeCarta INT NOT NULL,
         color VARCHAR(50) NOT NULL,
         caja VARCHAR(50) NOT NULL ,
-        precioCarta DOUBLE NOT NULL,
+        precioCarta DECIMAL(10,2) NOT NULL,
         img VARCHAR(750),
         idLineaPedido BIGINT NOT NULL,
         FOREIGN KEY (idLineaPedido) REFERENCES LineaPedidos (id)
     );
 
 INSERT INTO Cartas(nombreCarta,costeCarta,color,caja,precioCarta,img) VALUES 
-            ("",8,"","",00.00,""),
-            ("",8,"","",00.00,""),
-            ("",8,"","",00.00,""),
-            ("",8,"","",00.00,""),
-            ("",8,"","",00.00,""),
-            ("",8,"","",00.00,""),
-            ("",8,"","",00.00,""),
-            ("",8,"","",00.00,""),
-            ("",8,"","",00.00,""),
-            ("",8,"","",00.00,""),
-            ("",8,"","",00.00,""),
             ("",8,"","",00.00,"");
 
 
