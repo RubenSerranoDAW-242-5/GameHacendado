@@ -23,6 +23,7 @@ VALUES
     ('Miguel', 'Torres', 'miguel.torres@example.com', '56789012E', 'miguel123', 'usuario', 'Paseo de la Castellana 654, Madrid', '+34 600 432 109'),
     ('Laura', 'López', 'laura.lopez@example.com', '09876543F', 'lauraSecure', 'usuario', 'Gran Vía 321, Málaga', '+34 600 543 210'),
     ('David', 'Martínez', 'david.martinez@example.com', '67890123G', 'davidPass!', 'admin', 'Calle Luna 101, Zaragoza', '+34 600 654 321');
+    
     SELECT * FROM Usuario;
 
 
@@ -94,7 +95,7 @@ INSERT INTO Carta(nombreCarta,tipoCarta,costeCarta,color,codigoCarta,precioCarta
             ("Frieza, Scourge of Saiyans","Leader Card","","Verde","BT24-056",110.00,"freezerlider.png"),
             ("Metamorphic Android Cell","Battle Card","10","Verde","BT26-139",110.00,"cellverde.png"),
             ("Majin Buu, Shape-Shifter","Leader Card","","Azul","BT25-037",110.00,"buulider.png"),
-            ("Boujack, Crashingg the Tournament","Leader Card","","Verde","BT25-037",110.00,"bojaklider.png"),
+            ("Boujack, Crashingg the Tournament","Leader Card","","Verde","BT25-071",110.00,"bojaklider.png"),
             ("Son Gohan, Beyond the Ultimate","Battle Card","8","Azul","BT19-152",110.00,"bestia.png"),
             ("SS Gogeta, Fusion Reborn","Battle Card","8","Azul/Amarillo","BT22-140",60.00,"gogetabi.png"),
             ("SSB Gogeta, Shining Blue Strongest Warrior","Battle Card","8","Azul","BT26-138",170.00,"gogetablue.png"),
@@ -104,6 +105,10 @@ INSERT INTO Carta(nombreCarta,tipoCarta,costeCarta,color,codigoCarta,precioCarta
             ("SS4 Vegito, A Light in the Dark","Battle Card","8","Roja","BT18-139",100.00,"vegitoss4rojo.png");
 
 SELECT * FROM Carta;
+
+SELECT * 
+FROM Carta
+WHERE nombreCarta LIKE '%Majin%';
 
 DROP TABLE IF EXISTS Categorias;
 
@@ -121,7 +126,15 @@ INSERT INTO Categorias(categoria) VALUES
             ("Dual Attack"),
             ("Quadruple Strike"),
             ("Barrier"),
-            ("Victory Strike"),;
+            ("Victory Strike"),
+            ("Earthling"),
+            ("Blocker"),
+            ("Defelct"),
+            ("Energy-Exhaust"),
+            ("Double Strike"),
+            ("Triple Strike"),
+            ("Activate"),
+            ("Permanent");
 
 -- Tabla de categoria mucho a muchos 
 DROP TABLE IF EXISTS CategoriasCartas;
@@ -136,21 +149,38 @@ CREATE TABLE
     );
   INSERT INTO CategoriasCartas(idCarta,idCategoria) VALUES 
             -- Categoria 1(Saiyan)
-            (2,1),(3,1),(4,1),(5,1),(6,1),(7,1),
+            (3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(10,1),(13,1),(15,1),(16,1),(17,1),(20,1),(22,1),(27,1),(28,1),(29,1),(30,1),(31,1),(32,1),(33,1),
             -- Categoria 2(Gogeta)
-            (2,2),(3,2),(4,2),
+            (22,2),(28,2),(29,2),(30,2),
             -- Categoria 3(Vegito)
-            (6,3),(7,3),
+            (4,3),(5,3),(13,3),(32,3),(33,3),
             -- Categoria 4(Majin)
-            (1,4),
+            (1,4),(25,4),
             -- Categoria 5(Dual Attack)
-            (1,5),
+            (2,5),(1,5),(20,5),(14,5),(12,5),
             -- Categoria 6(Quadruple Strike)
-            (7,6),(4,6),
+			(33,6),(14,6),(30,6),
             -- Categoria 7(Barrier)
-            (2,7),(3,7),
+            (2,7),(27,7),(29,7),(30,7),(20,7),(12,7),(3,7),
             -- Categoria 8(Victory Strike)
-            (5,8);
+			(31,8),(7,8),
+            -- Categoria 9(Earthling)
+            (20,9),(27,9),
+            -- Categoria 10(Blocker)
+            (2,10),(28,10),(20,10),(12,10),
+            -- Categoria 11(Deflect)
+            (2,11),(16,11),(14,11),(32,11),(33,11),
+            -- Categoria 12(Energy-Exhaust)
+            (2,12),(5,12),(14,12),(28,12),
+            -- Categoria 13(Double Strike)
+            (18,13),(4,13),
+            -- Categoria 14(Triple Strike)
+            (17,14),(5,14),(32,14),
+            -- Categoria 15(Activate)
+            (27,15),(26,15),(1,15),(24,15),(23,15),(29,15),(30,15),(3,15),(21,15),(20,15),(19,15),(9,15),(4,15),(32,15),(18,15),(15,15),(17,15),(16,15),(13,15),(12,15),
+            (11,15),(10,15),(8,15),(31,15),(7,15),(6,15),
+            -- Categoria 16(Permanent)
+            (2,16),(23,16),(28,16),(22,16),(4,16),(32,16),(31,16),(13,16),(16,16),(17,16);
             
 SELECT c.nombreCarta, cat.categoria
 FROM Carta c
@@ -158,3 +188,4 @@ JOIN CategoriasCartas cc ON c.id = cc.idCarta
 JOIN Categorias cat ON cc.idCategoria = cat.id;
 
 SELECT DISTINCT Carta.id,carta.nombreCarta, Categorias.id,Categorias.categoria FROM Categorias LEFT JOIN Carta ON Categorias.id = Carta.id order by categorias.id;
+
