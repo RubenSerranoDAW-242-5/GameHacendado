@@ -70,8 +70,8 @@ CREATE TABLE
     );
 -- cambiar url imagen por una url global(de htcdocs a la carpeta images) y en la  bd poner solo nombre imagen
 INSERT INTO Carta(nombreCarta,tipoCarta,costeCarta,color,codigoCarta,precioCarta,img) VALUES 
-            ("Buu, Unlimited Majin","Battle Card","8","Azul","BT25-146",110.00,"21.png"),
-            ("Android 21, Transcendental Predator","Battle Card","4","Azul/Verde","BT20-149",110.00,"buuazul.png"),
+            ("Buu, Unlimited Majin","Battle Card","8","Azul","BT25-146",110.00, "buuazul.png"),
+            ("Android 21, Transcendental Predator","Battle Card","4","Azul/Verde","BT20-149",110.00,"21.png"),
             ("SS4: The Vermilion Saiyans","Extra Card","1","Negro","BT15-152",110.00,"vermilion.png"),
             ("Vegito, Warrior From Another Dimension","Unison Card","X","Negro","BT11-154",110.00,"vegitounison.png"),
             ("Power of Potara - Vegito, Kefla & Zamasu","Battle Card","8","Azul/Amarillo","BT7-131",110.00,"vegitobi.png"),

@@ -15,28 +15,29 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['usuario']) && isset($_POST['contra'])) {
-            $usuarioBD = $_POST['usuario'];
-            $contraBD = $_POST['contra'];
+            $usuario = $_POST['usuario'];
+            $contra = $_POST['contra'];
 
-            $query = "SELECT email,contraseña FROM Usuario;";
+            $query = "SELECT email,contraseña,rol FROM Usuario WHERE email='$usuario' LIMIT 1";
 
             $resultado = $bd->querySelect($query);
-            if ($resultado && $resultado['contraseña'] == $contraBD && $resultado['email'] == $usuarioBD) {
 
+            if ($resultado['contraseña'] == $contra && $resultado['email'] == $usuario) {
                 session_start();
                 $_SESSION['email'] = $resultado['email'];
                 $_SESSION['rol'] = $resultado['rol'];
-                if ($resultado['rol'] === "admin") {
-                    header("../admin/index.php?email=&&email=" . $resultado['email'] .
+
+                if ($resultado['rol'] == "admin") {
+                    header("Location: ../admin/index.php?email=" . $resultado['email'] .
                         "&&rol=" . $resultado['rol']);
+                    $bd->desconectar();
                 } else {
-                    header("Location:/index.php?email=&&email=" . $resultado['email'] .
+                    header("Location:../public/index.php?email=" . $resultado['email'] .
                         "&&rol=" . $resultado['rol']);
+                    $bd->desconectar();
                 }
 
-            } else if ($resultado['contraseña'] != $contraBD || $resultado['email'] != $usuarioBD) {
-                $errorMessage = "Usuario o Contraseña son incorrectos";
-            } else {
+            } else if ($resultado['contraseña'] != $contra || $resultado['email'] != $usuario) {
                 $errorMessage = "Usuario o Contraseña son incorrectos";
             }
         }
@@ -50,7 +51,7 @@
         <img src="../assets/images/logo.webp" id="logo">
 
         <label for="usuario">Email:</label>
-        <input type="text" name="usuario" id="usuario" placeholder="Mete tu correo" required><br>
+        <input type="text" name="usuario" id="usuario" placeholder="Inserta tu correo" required><br>
 
         <label for="contra">Contraseña:</label>
         <input type="password" name="contra" id="contra" placeholder="Inserte la contraseña" required><br>

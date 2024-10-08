@@ -18,16 +18,13 @@ class conexionBD
     {
         $resultado = $this->conBd->query($query);
         if ($resultado->num_rows > 0) {
-            return $resultado->fetch_assoc();
+            return $resultado->fetch_all(MYSQLI_ASSOC);
         }
     }
     function queryInsert($query)
     {
         $resultado = $this->conBd->query($query);
-        if ($resultado) {
-            return true;
-        } else
-            return false;
+        return $resultado;
     }
     function queryDelete($query)
     {
