@@ -14,7 +14,14 @@ class conexionBD
     {
         $this->conBd->close();
     }
-    function querySelect($query)
+    function querySelectUno($query)
+    {
+        $resultado = $this->conBd->query($query);
+        if ($resultado->num_rows > 0) {
+            return $resultado->fetch_assoc();
+        }
+    }
+    function querySelectMuchos($query)
     {
         $resultado = $this->conBd->query($query);
         if ($resultado->num_rows > 0) {

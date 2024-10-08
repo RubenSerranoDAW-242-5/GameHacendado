@@ -12,7 +12,7 @@
     $bd->conectar();
 
     $query = "SELECT * FROM Carta";
-    $listadoCartas = $bd->querySelect($query);
+    $listadoCartas = $bd->querySelectMuchos($query);
     $bd->desconectar();
     ?>
 </head>
