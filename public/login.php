@@ -26,14 +26,14 @@
                 session_start();
                 $_SESSION['email'] = $resultado['email'];
                 $_SESSION['rol'] = $resultado['rol'];
-                if ($resultado['rol']==="admin") {
+                if ($resultado['rol'] === "admin") {
                     header("../admin/index.php?email=&&email=" . $resultado['email'] .
-                    "&&rol=" . $resultado['rol']);
-                }else{
+                        "&&rol=" . $resultado['rol']);
+                } else {
                     header("Location:/index.php?email=&&email=" . $resultado['email'] .
-                    "&&rol=" . $resultado['rol']);
+                        "&&rol=" . $resultado['rol']);
                 }
-                
+
             } else if ($resultado['contraseña'] != $contraBD || $resultado['email'] != $usuarioBD) {
                 $errorMessage = "Usuario o Contraseña son incorrectos";
             } else {
@@ -45,14 +45,15 @@
 </head>
 
 <body>
-    <img src="../assets/images/logo.webp" id="logo">
+
     <form id="formLogin" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+        <img src="../assets/images/logo.webp" id="logo">
 
         <label for="usuario">Email:</label>
-        <input type="text" name="usuario" id="usuario"><br>
+        <input type="text" name="usuario" id="usuario" placeholder="Mete tu correo" required><br>
 
         <label for="contra">Contraseña:</label>
-        <input type="password" name="contra" id="contra"><br>
+        <input type="password" name="contra" id="contra" placeholder="Inserte la contraseña" required><br>
 
         <?php if (!empty($errorMessage)): ?>
             <div id="mensajeError"><?php echo $errorMessage; ?></div>
@@ -60,7 +61,7 @@
 
         <input type="submit" value="Enviar">
 
-
+        <p>¿No tienes una cuenta? <a href="registro.php">Registrate pinchado encima</a>.</p>
     </form>
 </body>
 
