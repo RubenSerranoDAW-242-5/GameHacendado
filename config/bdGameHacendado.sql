@@ -64,50 +64,50 @@ CREATE TABLE
         codigoCarta VARCHAR(50) NOT NULL UNIQUE,
         precioCarta DECIMAL(10,2) NOT NULL,
         img VARCHAR(750),
+        cantidad INT NOT NULL,
         idLineaPedido BIGINT,
         FOREIGN KEY (idLineaPedido) REFERENCES LineaPedidos (id)
     );
 -- cambiar url imagen por una url global(de htcdocs a la carpeta images) y en la  bd poner solo nombre imagen
-INSERT INTO Carta(nombreCarta,tipoCarta,costeCarta,color,codigoCarta,precioCarta,img) VALUES 
-            ("Buu, Unlimited Majin","Battle Card","8","Azul","BT25-146",110.00, "buuazul.png"),
-            ("Android 21, Transcendental Predator","Battle Card","4","Azul/Verde","BT20-149",110.00,"21.png"),
-            ("SS4: The Vermilion Saiyans","Extra Card","1","Negro","BT15-152",110.00,"vermilion.png"),
-            ("Vegito, Warrior From Another Dimension","Unison Card","X","Negro","BT11-154",110.00,"vegitounison.png"),
-            ("Power of Potara - Vegito, Kefla & Zamasu","Battle Card","8","Azul/Amarillo","BT7-131",110.00,"vegitobi.png"),
-            ("Vegeta, Awakened Feelings","Leader Card","","Rojo","BT24-001",110.00,"vegetarojolider.png"),
-            ("Perfected Ultra Instinct Son Goku, Transcendence","Battle Card","10","Negro","BT26-140",110.00,"ultradistintonegro.png"),
-            ("SS Trunks, Tournament Battle to the Death","Leader Card","","Verde","BT25-070",110.00,"trankaslider.png"),
-            ("Tapion, Hero Revived in the Present","Leader Card","","Azul","BT24-025",110.00,"tapionetalider.png"),
-            ("SS Son Goku, Beginning of a Legend","Leader Card","","Verde","BT24-055",110.00,"superkokunlider.png"),
-            ("King Piccolo, Final Stage of Conquest","Leader Card","","Rojo","BT25-002",110.00,"piccolodaimaolider.png"),
-            ("Super Mira, Diabolical Fusion","Unison Card","X","Amarillo","BT16-002",110.00,"miraunison.png"),
-            ("SS4 Vegito, Sparking Potara Warrior","Leader Card","","Negro","BT24-112",110.00,"lidervegito4.png"),
-            ("Cell Xeno, Unspeakable Abomination","Battle Card","12","Amarillo/Verde","BT9-137",110.00,"kuka.png"),
-            ("Son Goku, Face-Off With the Great Demon king","Leader Card","","Rojo","BT25-001",110.00,"kokunkidlider.png"),
-            ("Son Goku, Apex of the Origin","Battle Card","7","Negro","BT25-148",110.00,"kokunfrezernegro.png"),
-            ("Son Goku, Fist of Fate","Battle Card","8","Rojo","BT25-145",110.00,"kidkurojo.png"),
-            ("Supreme Kai of Time, Brainwashed","Battle Card","8","Negro","BT16-149",110.00,"kailavado.png"),
-            ("Heroines' Lineage","Extra Card","1","Negro","EB1-68",110.00,"Heroines.png"),
-            ("SS3 Gohanks, Interdimensional Warrior","Unison Card","X","Rojo","BT13-153",110.00,"gohanksunison.png"),
-            ("Bursting Rage","Extra Card","0","Rojo","BT22-138",110.00,"gohanextra.png"),
-            ("SS4 Gogeta, Strongest Fusion Explosion","Leader Card","","Amarillo","BT25-098",110.00,"gogetalider.png"),
-            ("Frieza, Scourge of Saiyans","Leader Card","","Verde","BT24-056",110.00,"freezerlider.png"),
-            ("Metamorphic Android Cell","Battle Card","10","Verde","BT26-139",110.00,"cellverde.png"),
-            ("Majin Buu, Shape-Shifter","Leader Card","","Azul","BT25-037",110.00,"buulider.png"),
-            ("Boujack, Crashingg the Tournament","Leader Card","","Verde","BT25-071",110.00,"bojaklider.png"),
-            ("Son Gohan, Beyond the Ultimate","Battle Card","8","Azul","BT19-152",110.00,"bestia.png"),
-            ("SS Gogeta, Fusion Reborn","Battle Card","8","Azul/Amarillo","BT22-140",60.00,"gogetabi.png"),
-            ("SSB Gogeta, Shining Blue Strongest Warrior","Battle Card","8","Azul","BT26-138",170.00,"gogetablue.png"),
-            ("SS4 Gogeta, Unrivaled Sparking","Battle Card","8","Amarillo","BT25-147",140.00,"gogetass4ama.png"),
-            ("Ultra Instinct Son Goku, State of the Gods","Battle Card","8","Amarillo","BT23-140",115.00,"ultradistinto.png"),
-            ("SSB kaio-Ken Vegito,Blue Potara-Fusion Warrior Champion","Battle Card","8","Negro","BT24-139",85.00,"vegitobluexeno.png"),
-            ("SS4 Vegito, A Light in the Dark","Battle Card","8","Roja","BT18-139",100.00,"vegitoss4rojo.png");
+INSERT INTO Carta(nombreCarta, tipoCarta, costeCarta, color, codigoCarta, precioCarta, img, cantidad) VALUES 
+    ("Buu, Unlimited Majin", "Battle Card", "8", "Azul", "BT25-146", 187.00, "buuazul.png", 10),
+("Android 21, Transcendental Predator", "Battle Card", "4", "Azul/Verde", "BT20-149", 159.00, "21.png", 10),
+("SS4: The Vermilion Saiyans", "Extra Card", "1", "Negro", "BT15-152", 101.00, "vermilion.png", 10),
+("Vegito, Warrior From Another Dimension", "Unison Card", "X", "Negro", "BT11-154", 199.00, "vegitounison.png", 10),
+("Power of Potara - Vegito, Kefla & Zamasu", "Battle Card", "8", "Azul/Amarillo", "BT7-131", 142.00, "vegitobi.png", 10),
+("Vegeta, Awakened Feelings", "Leader Card", "", "Rojo", "BT24-001", 72.00, "vegetarojolider.png", 10),
+("Perfected Ultra Instinct Son Goku, Transcendence", "Battle Card", "10", "Negro", "BT26-140", 146.00, "ultradistintonegro.png", 10),
+("SS Trunks, Tournament Battle to the Death", "Leader Card", "", "Verde", "BT25-070", 186.00, "trankaslider.png", 10),
+("Tapion, Hero Revived in the Present", "Leader Card", "", "Azul", "BT24-025", 138.00, "tapionetalider.png", 10),
+("SS Son Goku, Beginning of a Legend", "Leader Card", "", "Verde", "BT24-055", 134.00, "superkokunlider.png", 10),
+("King Piccolo, Final Stage of Conquest", "Leader Card", "", "Rojo", "BT25-002", 195.00, "piccolodaimaolider.png", 10),
+("Super Mira, Diabolical Fusion", "Unison Card", "X", "Amarillo", "BT16-002", 54.00, "miraunison.png", 10),
+("SS4 Vegito, Sparking Potara Warrior", "Leader Card", "", "Negro", "BT24-112", 70.00, "lidervegito4.png", 10),
+("Cell Xeno, Unspeakable Abomination", "Battle Card", "12", "Amarillo/Verde", "BT9-137", 198.00, "kuka.png", 10),
+("Son Goku, Face-Off With the Great Demon king", "Leader Card", "", "Rojo", "BT25-001", 96.00, "kokunkidlider.png", 10),
+("Son Goku, Apex of the Origin", "Battle Card", "7", "Negro", "BT25-148", 85.00, "kokunfrezernegro.png", 10),
+("Son Goku, Fist of Fate", "Battle Card", "8", "Rojo", "BT25-145", 162.00, "kidkurojo.png", 10),
+("Supreme Kai of Time, Brainwashed", "Battle Card", "8", "Negro", "BT16-149", 175.00, "kailavado.png", 10),
+("Heroines' Lineage", "Extra Card", "1", "Negro", "EB1-68", 132.00, "Heroines.png", 10),
+("SS3 Gohanks, Interdimensional Warrior", "Unison Card", "X", "Rojo", "BT13-153", 184.00, "gohanksunison.png", 10),
+("Bursting Rage", "Extra Card", "0", "Rojo", "BT22-138", 113.00, "gohanextra.png", 10),
+("SS4 Gogeta, Strongest Fusion Explosion", "Leader Card", "", "Amarillo", "BT25-098", 171.00, "gogetalider.png", 10),
+("Frieza, Scourge of Saiyans", "Leader Card", "", "Verde", "BT24-056", 117.00, "freezerlider.png", 10),
+("Metamorphic Android Cell", "Battle Card", "10", "Verde", "BT26-139", 193.00, "cellverde.png", 10),
+("Majin Buu, Shape-Shifter", "Leader Card", "", "Azul", "BT25-037", 164.00, "buulider.png", 10),
+("Boujack, Crashing the Tournament", "Leader Card", "", "Verde", "BT25-071", 89.00, "bojaklider.png", 10),
+("Son Gohan, Beyond the Ultimate", "Battle Card", "8", "Azul", "BT19-152", 63.00, "bestia.png", 10),
+("SS Gogeta, Fusion Reborn", "Battle Card", "8", "Azul/Amarillo", "BT22-140", 103.00, "gogetabi.png", 10),
+("SSB Gogeta, Shining Blue Strongest Warrior", "Battle Card", "8", "Azul", "BT26-138", 156.00, "gogetablue.png", 10),
+("SS4 Gogeta, Unrivaled Sparking", "Battle Card", "8", "Amarillo", "BT25-147", 53.00, "gogetass4ama.png", 10),
+("Ultra Instinct Son Goku, State of the Gods", "Battle Card", "8", "Amarillo", "BT23-140", 90.00, "ultradistinto.png", 10),
+("SSB Kaio-Ken Vegito, Blue Potara-Fusion Warrior Champion", "Battle Card", "8", "Negro", "BT24-139", 130.00, "vegitobluexeno.png", 10),
+("SS4 Vegito, A Light in the Dark", "Battle Card", "8", "Roja", "BT18-139", 48.00, "vegitoss4rojo.png", 10);
+
+
+
 
 SELECT * FROM Carta;
-
-SELECT * 
-FROM Carta
-WHERE nombreCarta LIKE '%Majin%';
 
 DROP TABLE IF EXISTS Categorias;
 

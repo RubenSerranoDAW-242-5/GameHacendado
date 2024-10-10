@@ -1,5 +1,6 @@
 /* Estilos para el header */
 #cabezera {
+    font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -97,3 +98,47 @@
     opacity: 0.8;
     cursor: pointer;
 }
+
+.boton-login .botonRegistro {
+    padding: 10px 20px;
+    background-color: #0056b3; /* Color de fondo oscuro */
+    color: white; /* Texto blanco */
+    border: 1px solid #0056b3; /* Borde del mismo color oscuro */
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Cambiar el color de fondo y del texto en hover */
+.boton-login .botonRegistro:hover {
+    background-color: #003f7f; /* Color de fondo aún más oscuro al hacer hover */
+    color: white; /* Mantiene el texto blanco */
+}
+
+
+
+/* Estilos del botón de inicio de sesión */
+.boton-login .botonInicioSesion {
+    padding: 10px 20px;
+    background-color: white; /* Fondo blanco */
+    color: #007bff; /* Texto azul */
+    border: 1px solid #00bfff; /* Borde del mismo azul */
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estilo cuando se pasa el ratón sobre el botón */
+.boton-login .botonInicioSesion:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón */
+    color: white; /* Cambia el color del texto al pasar el ratón */
+    border-color: #0056b3; /* Borde coincide con el color de fondo al hacer hover */
+}
+
+/* Añadir al header */
+#cabezera .boton-login {
+    margin-left: 20px;
+}
+

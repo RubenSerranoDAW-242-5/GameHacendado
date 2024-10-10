@@ -7,36 +7,33 @@
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/login.css">
     <?php
-
     include("../config/ConexionBD.php");
     $bd->conectar();
-
-
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['usuario']) && isset($_POST['contra'])) {
             $usuario = $_POST['usuario'];
             $contra = $_POST['contra'];
 
-            $query = "SELECT email,contraseña,rol FROM Usuario WHERE email='$usuario' LIMIT 1";
+            $query = "SELECT id,email,contraseña,rol FROM Usuario WHERE email='$usuario' LIMIT 1";
 
             $resultado = $bd->querySelectUno($query);
-            print_r($resultado);
             if ($resultado['contraseña'] == $contra && $resultado['email'] == $usuario) {
-                session_start();
+
                 $_SESSION['email'] = $resultado['email'];
+                $_SESSION['id'] = (int)$resultado['id'];
                 $_SESSION['rol'] = $resultado['rol'];
 
                 if ($resultado['rol'] == "admin") {
-                    header("Location: ../admin/index.php?email=" . $resultado['email'] .
-                        "&&rol=" . $resultado['rol']);
+                    header("Location: ../admin/index.php?id= " . $_SESSION['id'] . "&&email=" . $_SESSION['email'] .
+                        "&&rol=" . $_SESSION['rol']);
                     $bd->desconectar();
+                    exit;
                 } else {
-                    header("Location:../public/index.php?email=" . $resultado['email'] .
-                        "&&rol=" . $resultado['rol']);
+                    header("Location: ../public/index.php?id= " . $_SESSION['id'] . "&&email=" . $_SESSION['email'] .
+                        "&&rol=" . $_SESSION['rol']);
                     $bd->desconectar();
+                    exit;
                 }
-
             } else if ($resultado['contraseña'] != $contra || $resultado['email'] != $usuario) {
                 $errorMessage = "Usuario o Contraseña son incorrectos";
             }
