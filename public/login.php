@@ -21,7 +21,7 @@
             $query = "SELECT email,contraseña,rol FROM Usuario WHERE email='$usuario' LIMIT 1";
 
             $resultado = $bd->querySelectUno($query);
-
+            print_r($resultado);
             if ($resultado['contraseña'] == $contra && $resultado['email'] == $usuario) {
                 session_start();
                 $_SESSION['email'] = $resultado['email'];

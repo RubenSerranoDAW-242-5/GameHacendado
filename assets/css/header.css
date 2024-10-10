@@ -1,0 +1,99 @@
+/* Estilos para el header */
+#cabezera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff; /* Color de fondo del header */
+    padding: 10px 20px;
+    color: white;
+    box-shadow: 0px 2px 10px rgba(0, 123, 255, 0.2);
+}
+
+#cabezera .logo {
+    align-items: center; 
+    display: flex;
+    flex-direction: row;
+}
+
+#cabezera .logo img {
+    width: 100px;
+    height: 100px;
+    margin: 0;
+}
+
+#cabezera .logo h1 {
+    font-size: 24px;
+    color: white;
+    margin: 0;
+}
+
+/* Barra de búsqueda */
+#cabezera .search-bar {
+    display: flex;
+    align-items: center;
+    width: 40%;
+}
+
+#cabezera .search-bar input {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid #00bfff;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+}
+
+#cabezera .search-bar button {
+    padding: 8px 15px;
+    background-color: white;
+    color: #007bff;
+    border: 1px solid #00bfff;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#cabezera .search-bar button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Sección de íconos */
+#cabezera .icons {
+    display: flex;
+    align-items: center;
+}
+
+#cabezera .iconoUsuario,
+#cabezera .iconoCarrito {
+    margin-left: 15px;
+    position: relative;
+}
+
+#cabezera .iconoUsuario img,
+#cabezera .iconoCarrito img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Carrito de compras */
+#cabezera .iconoCarrito {
+    position: relative;
+}
+
+#cabezera .contador-carro {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+#cabezera .iconoUsuario:hover,
+#cabezera .iconoCarrito:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
