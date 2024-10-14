@@ -1,5 +1,6 @@
 /* Estilos para el header */
 #cabezera {
+    position: relative;
     font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: space-between;
@@ -82,7 +83,7 @@
     position: relative;
 }
 
-#cabezera .contador-carro {
+#contador-carro {
     position: absolute;
     top: -10px;
     right: -10px;
@@ -140,5 +141,25 @@
 /* Añadir al header */
 #cabezera .boton-login {
     margin-left: 20px;
+}
+
+/* Estilos del botón de cerrar sesión */
+.icons .cerrarSesion {
+    padding: 10px 20px;
+    background-color: #dc3545; /* Color de fondo rojo */
+    color: white; /* Texto blanco */
+    border: 1px solid #dc3545; /* Borde rojo */
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estilo cuando se pasa el ratón sobre el botón de cerrar sesión */
+.icons .cerrarSesion:hover {
+    background-color: #b02a37; /* Color de fondo rojo más oscuro al pasar el ratón */
+    color: white; /* Mantiene el texto blanco */
+    border-color: #b02a37; /* Borde coincide con el color de fondo al hacer hover */
 }
 

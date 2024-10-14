@@ -12,15 +12,16 @@
         <button type="submit">Buscar</button>
     </div>
 
-    <?php if (isset($_SESSION['usuario'])): ?>
+    <?php if (isset($_SESSION['email'])): ?>
         <div class="icons">
-            <a href="#" class="iconoUsuario">
+            <a href="../public/perfil.php" class="iconoUsuario">
                 <img src="../assets/images/iconoUsuario.webp">
             </a>
             <a href="../public/carrito.php" class="iconoCarrito">
                 <img src="../assets/images/carrito.webp">
-                <span class="contador-carro">0</span>
+                <span id="contador-carro"><?php echo $_SESSION['carrito-contador']; ?></span>
             </a>
+            <button class="cerrarSesion" onclick="window.location.href='logout.php'">Cerrar Sesión</button>
         </div>
     <?php else: ?>
         <div class="boton-login">

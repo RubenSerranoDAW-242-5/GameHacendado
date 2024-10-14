@@ -7,21 +7,23 @@
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/login.css">
     <?php
+    session_start();
     include("../config/ConexionBD.php");
     $bd->conectar();
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['usuario']) && isset($_POST['contra'])) {
-            $usuario = $_POST['usuario'];
+            $usuarioEmail = $_POST['usuario'];
             $contra = $_POST['contra'];
 
-            $query = "SELECT id,email,contraseña,rol FROM Usuario WHERE email='$usuario' LIMIT 1";
+            $query = "SELECT id,email,contraseña,rol FROM Usuario WHERE email='$usuarioEmail' LIMIT 1";
 
             $resultado = $bd->querySelectUno($query);
-            if ($resultado['contraseña'] == $contra && $resultado['email'] == $usuario) {
+            if ($resultado['contraseña'] == $contra && $resultado['email'] == $usuarioEmail) {
 
                 $_SESSION['email'] = $resultado['email'];
                 $_SESSION['id'] = (int)$resultado['id'];
                 $_SESSION['rol'] = $resultado['rol'];
+                $_SESSION['carrito-contador'] = 0;
 
                 if ($resultado['rol'] == "admin") {
                     header("Location: ../admin/index.php?id= " . $_SESSION['id'] . "&&email=" . $_SESSION['email'] .

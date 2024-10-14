@@ -14,17 +14,25 @@
     // echo "email: " . $_SESSION['email'] . "\n";
     // echo "id: " . $_SESSION['id'] . "\n";
     // echo "rol: " . $_SESSION['rol'] . "\n";
-
-
+    
     include '../includes/header.php';
-    include("../config/ConexionBD.php");
+    include '../config/ConexionBD.php';
 
     $bd->conectar();
-
-
     $query = "SELECT * FROM Carta";
     $listadoCartas = $bd->querySelectMuchos($query);
     $bd->desconectar();
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $idCarta = $_POST['idCarta'];
+        $cantidad = isset($_POST['cantidad-' . $_POST['idCarta']]) ? intval($_POST['cantidad' . $_POST['idCarta']]) : 1;
+
+
+        $_SESSION['carrito-contador'] += $cantidad;
+
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+    }
     ?>
 </head>
 
@@ -42,13 +50,14 @@
                     <p>Código: <?php echo htmlspecialchars($carta['codigoCarta']); ?></p>
                     <p>Precio: <?php echo number_format($carta['precioCarta'], 2); ?>€</p>
 
-                    <?php if (isset($_SESSION['usuario'])): ?>
+                    <?php if (isset($_SESSION['email'])): ?>
                         <div class="cantidad-controles">
                             <button type="button" class="btn-menos" data-id="<?php echo $carta['id']; ?>">-</button>
-                            <input type="number" id="cantidad-<?php echo $carta['id']; ?>" value="1" min="1" max="<?php echo $carta['cantidad']; ?>" readonly>
+                            <input type="number" id="cantidad-<?php echo $carta['id']; ?>" value="1" min="1"
+                                max="<?php echo $carta['cantidad']; ?>" readonly>
                             <button type="button" class="btn-mas" data-id="<?php echo $carta['id']; ?>">+</button>
                         </div>
-                        <form action="" method="post">
+                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                             <input type="hidden" name="idCarta" value="<?php echo $carta['id']; ?>">
                             <button type="submit">Añadir a carrito</button>
                         </form>
@@ -60,12 +69,12 @@
                             <p style="color: red;">Inicia sesión para añadir al carrito</p>
                         </form>
                     <?php endif; ?>
-
                     <br>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
 </body>
+<?php include '../includes/footer.php'; ?>
 
 </html>

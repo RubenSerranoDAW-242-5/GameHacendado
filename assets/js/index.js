@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Seleccionamos todos los botones de más y menos
     const botonesMas = document.querySelectorAll('.btn-mas');
     const botonesMenos = document.querySelectorAll('.btn-menos');
 
     botonesMas.forEach(boton => {
-        boton.addEventListener('click', function() {
+        boton.addEventListener('click', function () {
             const idCarta = this.getAttribute('data-id');
             const inputCantidad = document.getElementById(`cantidad-${idCarta}`);
             let cantidadActual = parseInt(inputCantidad.value);
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     botonesMenos.forEach(boton => {
-        boton.addEventListener('click', function() {
+        boton.addEventListener('click', function () {
             const idCarta = this.getAttribute('data-id');
             const inputCantidad = document.getElementById(`cantidad-${idCarta}`);
             let cantidadActual = parseInt(inputCantidad.value);
