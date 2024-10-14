@@ -10,9 +10,11 @@
     <?php
 
     session_start();
-    
+
     include '../includes/header.php';
     include '../config/ConexionBD.php';
+
+    $idUsuario = $_SESSION['id'];
 
     $bd->conectar();
     $query = "SELECT * FROM Carta";
@@ -21,17 +23,81 @@
 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $bd->conectar();
+
+        $query = "SELECT id
+                  FROM Pedidos 
+                  WHERE idUsuario = $idUsuario AND estado = 'en-proceso'";
+        $resultado = $bd->querySelectUno($query);
+
+        $idPedido = $resultado["id"];
+
+        $query = "SELECT * FROM Carta WHERE id = $idCarta LIMIT 1";
+        $cartaSeleccionada = $bd->querySelectUno($query);
+        $precioTotalLinea = $cartaSeleccionada["precioCarta"] * $catidad_de_cartas;
+
+        $bd->desconectar();
+
         $idCarta = $_POST['idCarta'];
         $catidad_de_cartas = intval($_POST['cantidad-' . $idCarta]);
         $_SESSION['carrito-contador']++;
-        
-        
-        $query = '';
+
+        if (!$resultado) {
+            try {
+                $bd->conectar();
+
+                // creacion del pedido
+                $query = "INSERT INTO Pedidos (fecha, precioTotal, direccionEnvio,idUsuario)
+                      VALUES (NOW(), NULL, NULL,$idUsuario);";
+                $bd->queryInsert($query);
+
+                // creacion una linea de pedido
+                $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido)
+                      VALUES ($catidad_de_cartas, $precioTotalLinea, $idPedido);";
+                $bd->queryInsert($query);
+
+                $idLineaPedido = $bd->lastInsertId();
+                // creacion de la relacion de la carta con la linea de pedido y creacion del pedido
+                $query = "INSERT INTO LineaPedido_Carta(idLineaPedido,idCarta) 
+                      VALUES ($idLineaPedido,$idCarta);";
+                $bd->queryInsert($query);
+
+                $query = "UPDATE Pedidos SET precioTotal = 
+                          (SELECT SUM(precioTotalLinea) FROM LineaPedidos WHERE idPedido = $idPedido) 
+                          WHERE id = $idPedido;";
+                $bd->queryUpdate($query);
+            } catch (Exception $e) {
+                echo "Error al insertar: " . $e->getMessage();
+            }
+            $bd->desconectar();
+        } else {
+            try {
+                $bd->conectar();
+
+                $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido)
+                          VALUES ($cantidad_de_cartas, $precioTotalLinea, $idPedido);";
+                $bd->queryInsert($query);
+                $idLineaPedido = $bd->lastInsertId();
+
+                $query = "INSERT INTO LineaPedido_Carta (idLineaPedido, idCarta) 
+                          VALUES ($idLineaPedido, $idCarta);";
+                $bd->queryInsert($query);
+
+                $query = "UPDATE Pedidos SET precioTotal = 
+                          (SELECT SUM(precioTotalLinea) FROM LineaPedidos WHERE idPedido = $idPedido) 
+                          WHERE id = $idPedido;";
+                $bd->queryUpdate($query);
+
+            } catch (Exception $e) {
+                echo "Error al insertar: " . $e->getMessage();
+            }
+            $bd->desconectar();
+        }
 
         header("Location: " . $_SERVER['PHP_SELF'] . "?lineasPedido=" . $_SESSION['carrito-contador'] .
-        "&cantidadCartas=" . $catidad_de_cartas.
-        "&idCarta=$idCarta");
-
+            "&cantidadCartas=" . $catidad_de_cartas .
+            "&idCarta=$idCarta");
         exit();
     }
     ?>
@@ -49,7 +115,7 @@
                     <p>Coste: <?php echo htmlspecialchars($carta['costeCarta']); ?></p>
                     <p>Color: <?php echo htmlspecialchars($carta['color']); ?></p>
                     <p>Código: <?php echo htmlspecialchars($carta['codigoCarta']); ?></p>
-                    <p>Precio: <?php echo number_format($carta['precioCarta'], 2); ?>€</p>
+                    <p id="precioCarta">Precio: <?php echo number_format($carta['precioCarta'], 2); ?>€</p>
 
                     <?php if (isset($_SESSION['email'])): ?>
                         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
@@ -57,7 +123,7 @@
                                 <button type="button" class="btn-menos" data-id="<?php echo $carta['id']; ?>">-</button>
                                 <input type="number" id="cantidad-<?php echo $carta['id']; ?>" min="1"
                                     max="<?php echo $carta['cantidad']; ?>" name="cantidad-<?php echo $carta['id']; ?>"
-                                    value="1"readonly>
+                                    value="1" readonly>
                                 <button type="button" class="btn-mas" data-id="<?php echo $carta['id']; ?>">+</button>
                             </div>
 

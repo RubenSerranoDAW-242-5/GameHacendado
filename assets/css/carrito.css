@@ -1,0 +1,141 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa; /* Fondo claro */
+    margin: 0; /* con el margin y el padding no tengo bordes pantalla*/
+    padding: 0;
+}
+
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #007bff; /* Color azul para el título */
+    text-align: center;
+}
+
+.linea-pedido {
+    background-color: #ffffff; /* Fondo blanco para las líneas de pedido */
+    border: 1px solid #ddd; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    margin: 10px 0; /* Margen vertical */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.pedido-detalles, .carta-detalles, .linea-detalles {
+    margin-bottom: 15px; /* Espaciado entre secciones */
+}
+
+.carta-detalles img {
+    width: 100px; /* Ancho de la imagen de la carta */
+    height: auto; /* Altura automática para mantener la proporción */
+    margin-right: 15px; /* Espaciado a la derecha */
+    border-radius: 5px; /* Bordes redondeados para la imagen */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra de imagen */
+}
+
+.carta-detalles h5, .linea-detalles h5 {
+    color: #007bff; /* Color azul para los encabezados */
+}
+
+.carta-detalles p, .linea-detalles p {
+    margin: 5px 0; /* Espaciado vertical para párrafos */
+}
+
+.btn {
+    background-color: #007bff; /* Botón azul */
+    color: white; /* Texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    margin-top: 20px; /* Margen superior */
+    display: inline-block; /* Bloque en línea */
+}
+
+.btn:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+}
+
+table {
+    width: 100%; /* Ancho completo para la tabla */
+    border-collapse: collapse; /* Colapsar bordes */
+    margin: 20px 0; /* Margen vertical */
+}
+
+table, th, td {
+    border: 1px solid #ddd; /* Borde gris claro para la tabla */
+}
+
+th, td {
+    padding: 15px; /* Espaciado interno en celdas */
+    text-align: center; /* Alinear texto al centro */
+}
+
+th {
+    background-color: #007bff; /* Color azul para encabezados de tabla */
+    color: white; /* Texto blanco */
+}
+
+.botonCompra {
+    border-radius: 10px;
+    font-size: x-large;
+    background-color: #28a745; /* Botón verde */
+    color: white; /* Texto blanco */
+    padding: 15px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    margin-top: 20px; /* Margen superior */
+    width: 100%; /* Ocupa todo el ancho */
+    display: block;
+    transition: background-color 0.3s; /* Suaviza el cambio de color */
+}
+
+.botonCompra:hover {
+    background-color: #218838; /* Color más oscuro al pasar el mouse */
+}
+
+#imagenPago{
+    margin: 0 auto; 
+    display: block;
+    max-width: 100%; 
+    height: auto;
+}
+
+.botonEliminarCarrito{
+    padding: 10px 20px;
+    background-color: #dc3545; /* Color de fondo rojo */
+    color: white; /* Texto blanco */
+    border: 1px solid #dc3545; /* Borde rojo */
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* Estilos generales para el select */
+select {
+    font-size: large; /* Tamaño de fuente grande */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ddd; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: #ffffff; /* Fondo blanco */
+    color: #333; /* Color del texto */
+    width: 8%; /* Ocupa todo el ancho */
+    margin-top: 10px; /* Margen superior */
+    transition: border-color 0.3s; /* Suaviza el cambio de color del borde */
+}
+
+/* Cambia el color del borde al enfocar */
+select:focus {
+    border-color: #007bff; /* Borde azul al enfocar */
+    outline: none; /* Sin contorno */
+}
+
+/* Estilos para las opciones del select */
+option {
+    padding: 10px; /* Espaciado interno de las opciones */
+}

@@ -49,6 +49,9 @@ class conexionBD
         } else
             return false;
     }
+    function lastInsertId() {
+        return $this->conBd->lastInsertId();
+    }
 }
 
 $bd = new conexionBD();

@@ -34,6 +34,7 @@ CREATE TABLE
         fecha DATETIME ,
         precioTotal DECIMAL(10,2) ,
         direccionEnvio VARCHAR(800) ,
+        estado ENUM('en-proceso','terminado') DEFAULT 'en-proceso',
         idUsuario BIGINT NOT NULL,
         FOREIGN KEY (idUsuario) REFERENCES Usuario (id)
     );
@@ -51,7 +52,6 @@ CREATE TABLE
         FOREIGN KEY (idPedido) REFERENCES Pedidos (id)
     );
 
--- Tabla de las cartas con sus atributos 
 DROP TABLE IF EXISTS Carta;
 
 CREATE TABLE
@@ -64,9 +64,7 @@ CREATE TABLE
         codigoCarta VARCHAR(50) NOT NULL UNIQUE,
         precioCarta DECIMAL(10,2) NOT NULL,
         img VARCHAR(750),
-        cantidad INT NOT NULL,
-        idLineaPedido BIGINT,
-        FOREIGN KEY (idLineaPedido) REFERENCES LineaPedidos (id)
+        cantidad INT NOT NULL
     );
 -- cambiar url imagen por una url global(de htcdocs a la carpeta images) y en la  bd poner solo nombre imagen
 INSERT INTO Carta(nombreCarta, tipoCarta, costeCarta, color, codigoCarta, precioCarta, img, cantidad) VALUES 
@@ -104,8 +102,15 @@ INSERT INTO Carta(nombreCarta, tipoCarta, costeCarta, color, codigoCarta, precio
 ("SSB Kaio-Ken Vegito, Blue Potara-Fusion Warrior Champion", "Battle Card", "8", "Negro", "BT24-139", 130.00, "vegitobluexeno.png", 10),
 ("SS4 Vegito, A Light in the Dark", "Battle Card", "8", "Roja", "BT18-139", 48.00, "vegitoss4rojo.png", 10);
 
+DROP TABLE IF EXISTS LineaPedido_Carta;
 
-
+CREATE TABLE LineaPedido_Carta (
+    idLineaPedido BIGINT NOT NULL,
+    idCarta BIGINT NOT NULL,
+    PRIMARY KEY (idLineaPedido, idCarta),
+    FOREIGN KEY (idLineaPedido) REFERENCES LineaPedidos(id),
+    FOREIGN KEY (idCarta) REFERENCES Carta(id)
+);
 
 SELECT * FROM Carta;
 
@@ -188,3 +193,23 @@ JOIN Categorias cat ON cc.idCategoria = cat.id;
 
 SELECT DISTINCT Carta.id,carta.nombreCarta, Categorias.id,Categorias.categoria FROM Categorias LEFT JOIN Carta ON Categorias.id = Carta.id order by categorias.id;
 
+SELECT 
+    p.id AS pedido_id, 
+    p.fecha, 
+    p.precioTotal, 
+    p.direccionEnvio, 
+    lp.id AS linea_pedido_id, 
+    lp.cantidad, 
+    lp.precioTotalLinea, 
+    c.nombreCarta, 
+    c.precioCarta,
+    c.codigoCarta,
+    c.img
+FROM 
+    Pedidos p 
+JOIN 
+    LineaPedidos lp ON p.id = lp.idPedido 
+JOIN 
+    LineaPedido_Carta lpc ON lp.id = lpc.idLineaPedido 
+JOIN 
+    Carta c ON lpc.idCarta = c.id;
