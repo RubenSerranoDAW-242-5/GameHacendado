@@ -31,9 +31,9 @@ DROP TABLE IF EXISTS Pedidos;
 CREATE TABLE
     Pedidos (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
-        fecha DATETIME NOT NULL,
-        precioTotal DECIMAL(10,2) NOT NULL,
-        direccionEnvio VARCHAR(800) NOT NULL,
+        fecha DATETIME ,
+        precioTotal DECIMAL(10,2) ,
+        direccionEnvio VARCHAR(800) ,
         idUsuario BIGINT NOT NULL,
         FOREIGN KEY (idUsuario) REFERENCES Usuario (id)
     );
@@ -45,8 +45,8 @@ DROP TABLE IF EXISTS LineaPedidos;
 CREATE TABLE
     LineaPedidos (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
-        cantidad INT NOT NULL,
-        precioTotalLinea DECIMAL(10,2) NOT NULL,
+        cantidad INT ,
+        precioTotalLinea DECIMAL(10,2) ,
         idPedido BIGINT NOT NULL,
         FOREIGN KEY (idPedido) REFERENCES Pedidos (id)
     );
