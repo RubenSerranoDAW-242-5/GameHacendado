@@ -64,5 +64,5 @@
         <p>¿No tienes una cuenta? <a href="registro.php">Registrate pinchado encima</a>.</p>
     </form>
 </body>
-
+<?php include '../includes/footer.php'; ?>
 </html>

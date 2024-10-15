@@ -12,28 +12,29 @@
 
     include '../config/ConexionBD.php';
     include '../includes/header.php';
-
-    $bd->conectar();
-    $idUsuario = $_SESSION["id"];
-    $query = "SELECT p.id AS pedido_id, 
-              p.fecha, 
-              p.precioTotal, 
-              p.direccionEnvio, 
-              lp.id AS linea_pedido_id, 
-              lp.cantidad, 
-              lp.precioTotalLinea, 
-              c.nombreCarta, 
-              c.precioCarta,
-              c.codigoCarta,
-              c.img
-              FROM Pedidos p 
-              JOIN LineaPedidos lp ON p.id = lp.idPedido 
-              JOIN LineaPedido_Carta lpc ON lp.id = lpc.idLineaPedido 
-              JOIN Carta c ON lpc.idCarta = c.id
-              WHERE p.idUsuario = $idUsuario;";
-    $listaPedidos = $bd->querySelectMuchos($query);
-
-    $bd->desconectar();
+    if (isset($_SESSION['id'])) {
+        $bd->conectar();
+        $idUsuario = $_SESSION["id"];
+        $query = "SELECT p.id AS pedido_id, 
+                  p.fecha, 
+                  p.precioTotal, 
+                  p.direccionEnvio, 
+                  lp.id AS linea_pedido_id, 
+                  lp.cantidad, 
+                  lp.precioTotalLinea, 
+                  c.nombreCarta, 
+                  c.precioCarta,
+                  c.codigoCarta,
+                  c.img
+                  FROM Pedidos p 
+                  JOIN LineaPedidos lp ON p.id = lp.idPedido 
+                  JOIN LineaPedido_Carta lpc ON lp.id = lpc.idLineaPedido 
+                  JOIN Carta c ON lpc.idCarta = c.id
+                  WHERE p.idUsuario = $idUsuario;";
+        $listaPedidos = $bd->querySelectMuchos($query);
+        
+        $bd->desconectar();
+    }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // cambiar estado del  pedido a terminado y actulizar datos como envio etc
     }

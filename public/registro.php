@@ -32,7 +32,7 @@
 
                 $res = $bd->queryInsert($query);
                 if ($res) {
-                    header("Location:/login.php?");
+                    header("Location:/login.php");
                     $bd->desconectar();
                 } else {
                     echo Err('Se ha producido un error al crear el usuario');

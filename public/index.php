@@ -53,15 +53,11 @@
                 $bd->queryInsert($query);
 
                 // creacion una linea de pedido
-                $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido)
-                      VALUES ($catidad_de_cartas, $precioTotalLinea, $idPedido);";
+                $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido,IdCarta)
+                      VALUES ($catidad_de_cartas, $precioTotalLinea, $idPedido, $idCarta);";
                 $bd->queryInsert($query);
 
                 $idLineaPedido = $bd->lastInsertId();
-                // creacion de la relacion de la carta con la linea de pedido y creacion del pedido
-                $query = "INSERT INTO LineaPedido_Carta(idLineaPedido,idCarta) 
-                      VALUES ($idLineaPedido,$idCarta);";
-                $bd->queryInsert($query);
 
                 $query = "UPDATE Pedidos SET precioTotal = 
                           (SELECT SUM(precioTotalLinea) FROM LineaPedidos WHERE idPedido = $idPedido) 

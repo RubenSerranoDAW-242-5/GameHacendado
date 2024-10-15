@@ -48,8 +48,10 @@ CREATE TABLE
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         cantidad INT ,
         precioTotalLinea DECIMAL(10,2) ,
-        idPedido BIGINT NOT NULL,
-        FOREIGN KEY (idPedido) REFERENCES Pedidos (id)
+        idPedido BIGINT NOT NULL UNIQUE,
+        FOREIGN KEY (idPedido) REFERENCES Pedidos (id),
+        idCarta BIGINT NOT NULL UNIQUE,
+        FOREIGN KEY (idCarta) REFERENCES Carta (id)
     );
 
 DROP TABLE IF EXISTS Carta;
@@ -101,16 +103,6 @@ INSERT INTO Carta(nombreCarta, tipoCarta, costeCarta, color, codigoCarta, precio
 ("Ultra Instinct Son Goku, State of the Gods", "Battle Card", "8", "Amarillo", "BT23-140", 90.00, "ultradistinto.png", 10),
 ("SSB Kaio-Ken Vegito, Blue Potara-Fusion Warrior Champion", "Battle Card", "8", "Negro", "BT24-139", 130.00, "vegitobluexeno.png", 10),
 ("SS4 Vegito, A Light in the Dark", "Battle Card", "8", "Roja", "BT18-139", 48.00, "vegitoss4rojo.png", 10);
-
-DROP TABLE IF EXISTS LineaPedido_Carta;
-
-CREATE TABLE LineaPedido_Carta (
-    idLineaPedido BIGINT NOT NULL,
-    idCarta BIGINT NOT NULL,
-    PRIMARY KEY (idLineaPedido, idCarta),
-    FOREIGN KEY (idLineaPedido) REFERENCES LineaPedidos(id),
-    FOREIGN KEY (idCarta) REFERENCES Carta(id)
-);
 
 SELECT * FROM Carta;
 
