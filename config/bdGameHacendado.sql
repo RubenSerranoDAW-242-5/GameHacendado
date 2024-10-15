@@ -38,8 +38,10 @@ CREATE TABLE
         idUsuario BIGINT NOT NULL,
         FOREIGN KEY (idUsuario) REFERENCES Usuario (id)
     );
-
-
+INSERT INTO Pedidos (fecha, precioTotal, direccionEnvio, estado, idUsuario)
+VALUES
+(NOW(), 300.00, 'Av. Siempreviva 456, Barcelona', 'en-proceso', 2);
+SELECT * FROM pedidos;
 
 DROP TABLE IF EXISTS LineaPedidos;
 
@@ -48,11 +50,18 @@ CREATE TABLE
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         cantidad INT ,
         precioTotalLinea DECIMAL(10,2) ,
-        idPedido BIGINT NOT NULL UNIQUE,
+        idPedido BIGINT NOT NULL,
         FOREIGN KEY (idPedido) REFERENCES Pedidos (id),
-        idCarta BIGINT NOT NULL UNIQUE,
+        idCarta BIGINT NOT NULL,
         FOREIGN KEY (idCarta) REFERENCES Carta (id)
     );
+
+
+
+INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido, idCarta)
+VALUES
+    (2, 374.00, 1, 1),
+     (1, 159.00, 1, 2);
 
 DROP TABLE IF EXISTS Carta;
 

@@ -20,8 +20,6 @@ $rutaSeparada = explode('/', trim($ruta, '/'));
                 </a>
                 <button class="cerrarSesion" onclick="window.location.href='logout.php'">Cerrar Sesión</button>
             </div>
-        
-
         <?php endif; ?>
     </header>
 <?php elseif (str_contains($rutaSeparada[count($rutaSeparada) - 1], 'index.php')): ?>
@@ -82,27 +80,22 @@ $rutaSeparada = explode('/', trim($ruta, '/'));
 
         <?php endif; ?>
     </header>
-    <?php elseif (str_contains($rutaSeparada[count($rutaSeparada) - 1], 'perfil.php')): ?>
+<?php elseif (str_contains($rutaSeparada[count($rutaSeparada) - 1], 'perfil.php')): ?>
     <header id="cabezera">
 
         <div class="logo">
             <img src="../assets/images/logo.webp">
-            <h1>HacendadoGame</h1>
+            <h1>GameHacendado</h1>
         </div>
 
         <?php if (isset($_SESSION['email'])): ?>
+            <div class="icons">
                 <a href="../public/carrito.php" class="iconoCarrito">
                     <img src="../assets/images/carrito.webp">
                     <span id="contador-carro"><?php echo $_SESSION['carrito-contador']; ?></span>
                 </a>
                 <button class="cerrarSesion" onclick="window.location.href='logout.php'">Cerrar Sesión</button>
             </div>
-        <?php else: ?>
-            <div class="boton-login">
-                <button class="botonInicioSesion" onclick="window.location.href='login.php'">Iniciar Sesión</button>
-                <button class="botonRegistro" onclick="window.location.href='registro.php'">Registrate</button>
-            </div>
-
         <?php endif; ?>
     </header>
 <?php endif; ?>

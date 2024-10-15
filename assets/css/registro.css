@@ -1,3 +1,15 @@
+#formLogin {
+    font-family: 'Poppins', sans-serif; 
+}
+
+#formLogin label,
+#formLogin input[type="text"],
+#formLogin input[type="password"],
+#formLogin input[type="submit"],
+#formLogin p {
+    font-family: 'Poppins', sans-serif;
+}
+
 #logo {
     display: block;
     margin: 0 auto 20px;

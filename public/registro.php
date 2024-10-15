@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/registro.css">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
-    <link rel="stylesheet" href="../assets/css/registro.css">
+    <script src="../assets/js/loadout.js" defer></script>
     <?php
 
     include("../config/ConexionBD.php");
@@ -18,32 +20,36 @@
             && isset($_POST['contra']) && isset($_POST['confirmacion_contra'])
         ) {
             if ($_POST['contra'] == $_POST['confirmacion_contra']) {
-
-                $nombre = $_POST['nombre'];
-                $apellido = $_POST['apellido'];
-                $email = $_POST['email'];
                 $dni = $_POST['dni'];
-                $contra = $_POST['contra'];
-                $direccion = $_POST['direccion'];
-                $telefono = $_POST['telefono'];
+                $queryDni = "SELECT * FROM Usuario WHERE dni = '$dni'";
+                $resdni = $bd->querySelectUno($queryDni);
+                if ($resdni) {
+                    $nombre = $_POST['nombre'];
+                    $apellido = $_POST['apellido'];
+                    $email = $_POST['email'];
+                    $contra = $_POST['contra'];
+                    $direccion = $_POST['direccion'];
+                    $telefono = $_POST['telefono'];
 
-                $query = "INSERT INTO Usuario (nombre, apellido, email, dni, contraseña, rol, direccion, telefono)
-                VALUES ('$nombre','$apellido','$email','$dni','$contra','usuario','$direccion','$telefono')";
+                    $query = "INSERT INTO Usuario (nombre, apellido, email, dni, contraseña, rol, direccion, telefono)
+                    VALUES ('$nombre','$apellido','$email','$dni','$contra','usuario','$direccion','$telefono')";
 
-                $res = $bd->queryInsert($query);
-                if ($res) {
-                    header("Location:/login.php");
+                    $res = $bd->queryInsert($query);
                     $bd->desconectar();
+                    
+                    if ($res) {
+                        header("../GameHacendado/public/login.php");
+                    } else {
+                        $errorMessage = "Error insert en la base de datos";
+                    }
                 } else {
-                    echo Err('Se ha producido un error al crear el usuario');
-                    $bd->desconectar();
+                    $errorMessage = "El dni ya esta en uso";
                 }
             } else {
-                echo Err("Las contraseñas no coinciden");
+                $errorMessage = "La contraseña no es la misma";
             }
-
         } else {
-            echo Err("Te falta algun campo por rellenar");
+            $errorMessage = "Tienes algun campo sin rellenar";
         }
     }
 
@@ -79,6 +85,10 @@
 
             <label for="confirmacion_contra">Confirma Contraseña</label>
             <input type="password" id="confirmacion_contra" name="confirmacion_contra" placeholder="Confirma tu contraseña" required>
+
+            <?php if (!empty($errorMessage)): ?>
+                <div id="mensajeError"><?php echo $errorMessage; ?></div>
+            <?php endif; ?>
 
             <input type="submit" value="Register">
         </form>

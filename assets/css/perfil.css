@@ -1,0 +1,90 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f9fc;
+    margin: 0;
+    padding: 0;
+}
+
+.usuario {
+    width: 100%; /* Ocupar todo el ancho de la pantalla */
+    max-width: 800px; /* Limitar el ancho máximo si es necesario */
+    margin: 50px auto; /* Centrar horizontalmente */
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #00bfff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 123, 255, 0.2);
+}
+
+.usuario h3 {
+    font-size: 24px;
+    color: #007bff;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.usuario form {
+    display: flex;
+    flex-direction: column; /* Disposición vertical de los campos */
+}
+
+.usuario label {
+    font-weight: bold;
+    margin: 10px 0 5px; /* Espaciado vertical */
+    color: #007bff;
+}
+
+.usuario input[type="text"],
+.usuario input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px; /* Espaciado entre campos */
+    border: 1px solid #00bfff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 15px;
+    background-color: #f0f8ff;
+    color: #333;
+}
+
+.usuario input[type="text"]:focus,
+.usuario input[type="email"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.usuario input[type="submit"] {
+    padding: 12px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.usuario input[type="submit"]:hover {
+    background-color: #218838;
+    box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.4);
+}
+
+.no-datos {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #ffe6e6;
+    border: 1px solid red;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px rgba(255, 0, 0, 0.2);
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #555;
+}

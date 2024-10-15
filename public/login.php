@@ -6,6 +6,7 @@
     <meta name="login" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/login.css">
+    <script src="../assets/js/loadout.js" defer></script>
     <?php
     session_start();
     include("../config/ConexionBD.php");
@@ -65,4 +66,5 @@
     </form>
 </body>
 <?php include '../includes/footer.php'; ?>
+
 </html>

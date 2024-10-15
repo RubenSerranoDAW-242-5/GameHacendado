@@ -13,8 +13,10 @@
 
     include '../includes/header.php';
     include '../config/ConexionBD.php';
+    if (isset($_SESSION["email"])) {
+        $idUsuario = $_SESSION['id'];
+    }
 
-    $idUsuario = $_SESSION['id'];
 
     $bd->conectar();
     $query = "SELECT * FROM Carta";
@@ -71,20 +73,14 @@
             try {
                 $bd->conectar();
 
-                $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido)
-                          VALUES ($cantidad_de_cartas, $precioTotalLinea, $idPedido);";
-                $bd->queryInsert($query);
-                $idLineaPedido = $bd->lastInsertId();
-
-                $query = "INSERT INTO LineaPedido_Carta (idLineaPedido, idCarta) 
-                          VALUES ($idLineaPedido, $idCarta);";
+                $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido,IdCarta)
+                      VALUES ($catidad_de_cartas, $precioTotalLinea, $idPedido, $idCarta);";
                 $bd->queryInsert($query);
 
                 $query = "UPDATE Pedidos SET precioTotal = 
                           (SELECT SUM(precioTotalLinea) FROM LineaPedidos WHERE idPedido = $idPedido) 
                           WHERE id = $idPedido;";
                 $bd->queryUpdate($query);
-
             } catch (Exception $e) {
                 echo "Error al insertar: " . $e->getMessage();
             }
