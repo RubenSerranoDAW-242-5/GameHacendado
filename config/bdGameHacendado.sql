@@ -12,7 +12,6 @@ CREATE TABLE
         direccion VARCHAR(800) NOT NULL,
         telefono VARCHAR(50) NOT NULL
     );
-
 INSERT INTO Usuario (nombre, apellido, email, dni, contraseña, rol, direccion, telefono)
 VALUES
     ('Juan', 'Pérez', 'juan.perez@example.com', '12345678A', 'password123', 'admin', 'Calle Falsa 123, Madrid', '+34 600 123 456'),
@@ -61,7 +60,9 @@ CREATE TABLE
 INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido, idCarta)
 VALUES
     (2, 374.00, 1, 1),
-     (1, 159.00, 1, 2);
+     (1, 159.00, 1, 2),
+     (10,159.50,1,3);
+SELECT * FROM lineapedidos;
 
 DROP TABLE IF EXISTS Carta;
 

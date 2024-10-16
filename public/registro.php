@@ -11,7 +11,8 @@
     <?php
 
     include("../config/ConexionBD.php");
-    $bd->conectar();
+    include "../includes/header.php";
+
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (
@@ -20,10 +21,14 @@
             && isset($_POST['contra']) && isset($_POST['confirmacion_contra'])
         ) {
             if ($_POST['contra'] == $_POST['confirmacion_contra']) {
+                
                 $dni = $_POST['dni'];
-                $queryDni = "SELECT * FROM Usuario WHERE dni = '$dni'";
+                $queryDni = "SELECT * FROM Usuario WHERE dni = '$dni'LIMIT 1;";
+                $bd->conectar();
                 $resdni = $bd->querySelectUno($queryDni);
-                if ($resdni) {
+                $bd->desconectar();
+                if (!$resdni) {
+
                     $nombre = $_POST['nombre'];
                     $apellido = $_POST['apellido'];
                     $email = $_POST['email'];
@@ -33,12 +38,11 @@
 
                     $query = "INSERT INTO Usuario (nombre, apellido, email, dni, contraseña, rol, direccion, telefono)
                     VALUES ('$nombre','$apellido','$email','$dni','$contra','usuario','$direccion','$telefono')";
-
+                    $bd->conectar();
                     $res = $bd->queryInsert($query);
                     $bd->desconectar();
-                    
                     if ($res) {
-                        header("../GameHacendado/public/login.php");
+                        header("Location:login.php");
                     } else {
                         $errorMessage = "Error insert en la base de datos";
                     }
@@ -59,7 +63,6 @@
 <body>
     <div id="formLogin">
         <img id="logo" src="../assets/images/logo.webp" alt="Logo">
-
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
 
             <label for="nombre">Nombre</label>
@@ -84,7 +87,8 @@
             <input type="password" id="contra" name="contra" placeholder="Introduce tu contraseña" required>
 
             <label for="confirmacion_contra">Confirma Contraseña</label>
-            <input type="password" id="confirmacion_contra" name="confirmacion_contra" placeholder="Confirma tu contraseña" required>
+            <input type="password" id="confirmacion_contra" name="confirmacion_contra"
+                placeholder="Confirma tu contraseña" required>
 
             <?php if (!empty($errorMessage)): ?>
                 <div id="mensajeError"><?php echo $errorMessage; ?></div>
@@ -96,5 +100,5 @@
         <p>Ya tienes una cuenta <a href="login.php">Inicia Sesion</a>.</p>
     </div>
 </body>
-
+<?php include "../includes/footer.php"; ?>
 </html>

@@ -32,7 +32,10 @@
                   WHERE p.idUsuario = $idUsuario;";
         $listaPedidos = $bd->querySelectMuchos($query);
 
+        //acceder a la lista de pedidos para obtener datos de pedido
+        
         $bd->desconectar();
+
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // cambiar estado del  pedido a terminado y actulizar datos como envio etc
@@ -41,47 +44,115 @@
 </head>
 
 <body>
+    <div class="container">
+        <h1>Carrito de Compras</h1>
+        <?php if ($_SESSION['carrito-contador'] > 0): ?>
+            <?php foreach ($listaPedidos as $lineaPedido): ?>
+                <div class="linea-pedido">
+
+                    <div class="pedido-detalles">
+                        <h4>Pedido ID: <?php echo htmlspecialchars($lineaPedido['pedido_id']); ?></h4>
+                        <p>Fecha: <?php echo htmlspecialchars($lineaPedido['fecha']); ?></p>
+                        <p>Precio total del pedido: <?php echo number_format($lineaPedido['precioTotal'], 2); ?> €</p>
+                        <p>Dirección de envío: <?php echo htmlspecialchars($lineaPedido['direccionEnvio']); ?></p>
+                    </div>
+
+                    <div class="carta-detalles">
+                        <h5>Carta: <?php echo htmlspecialchars($lineaPedido['nombreCarta']); ?></h5>
+                        <img src="<?php echo "../assets/images/" . htmlspecialchars($lineaPedido['img']); ?>"
+                            alt="<?php echo htmlspecialchars($lineaPedido['nombreCarta']); ?>" class="carta-img">
+                        <p>Código: <?php echo htmlspecialchars($lineaPedido['codigoCarta']); ?></p>
+                        <p>Precio de la carta: <?php echo number_format($lineaPedido['precioCarta'], 2); ?> €</p>
+                    </div>
+
+                    <div class="linea-detalles">
+                        <h5>Detalles de la línea de pedido (ID:
+                            <?php echo htmlspecialchars($lineaPedido['linea_pedido_id']); ?>)
+                        </h5>
+                        <label for="cantidadSeleccionada">Cantidad:</label>
+                        <select id="cantidadSeleccionada" name="cantidadSeleccionada">
+                            <?php for ($i = 1; $i <= $lineaPedido['cantidad']; $i++): ?>
+                                <option><?php echo $i; ?></option>
+                            <?php endfor; ?>
+                        </select>
+                        <p>Precio total de la línea: <?php echo number_format($lineaPedido['precioTotalLinea'], 2); ?> €</p>
+                    </div>
+
+                    <!-- Formulario para eliminar carrito -->
+                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                        <input type="hidden" name="eliminar_carrito" value="<?php echo $lineaPedido['linea_pedido_id']; ?>">
+                        <button type="submit" class="botonEliminarCarrito">Eliminar Carrito</button>
+                    </form>
+
+                    <hr>
+                </div>
+            <?php endforeach; ?>
+
+            <hr>
+
+            <!-- Formulario para comprar -->
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                <button type="submit" name="comprar" class="botonCompra">Comprar Ahora</button>
+            </form>
+
+            <img src="../assets/images/metodospago.png" id="imagenPago" alt="img-pagos">
+        <?php else: ?>
+            <h1>Tu carrito está vacío</h1>
+        <?php endif; ?>
+    </div>
+</body>
+
+<!-- <body>
     <div class="container" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <h1>Carrito de Compras</h1>
-        <?php foreach ($listaPedidos as $lineaPedido): ?>
-            <div class="linea-pedido">
+        <?php if ($_SESSION['carrito-contador'] > 0): ?>
+            <?php foreach ($listaPedidos as $lineaPedido): ?>
+                <div class="linea-pedido">
 
-                <div class="pedido-detalles">
-                    <h4>Pedido ID: <?php echo htmlspecialchars($lineaPedido['pedido_id']); ?></h4>
-                    <p>Fecha: <?php echo htmlspecialchars($lineaPedido['fecha']); ?></p>
-                    <p>Precio total del pedido: <?php echo number_format($lineaPedido['precioTotal'], 2); ?> €</p>
-                    <p>Dirección de envío: <?php echo htmlspecialchars($lineaPedido['direccionEnvio']); ?></p>
+                    <div class="pedido-detalles">
+                        <h4>Pedido ID: <?php echo htmlspecialchars($lineaPedido['pedido_id']); ?></h4>
+                        <p>Fecha: <?php echo htmlspecialchars($lineaPedido['fecha']); ?></p>
+                        <p>Precio total del pedido: <?php echo number_format($lineaPedido['precioTotal'], 2); ?> €</p>
+                        <p>Dirección de envío: <?php echo htmlspecialchars($lineaPedido['direccionEnvio']); ?></p>
+                    </div>
+
+                    <div class="carta-detalles">
+                        <h5>Carta: <?php echo htmlspecialchars($lineaPedido['nombreCarta']); ?></h5>
+                        <img src="<?php echo "../assets/images/" . htmlspecialchars($lineaPedido['img']); ?>"
+                            alt="<?php echo htmlspecialchars($lineaPedido['nombreCarta']); ?>" class="carta-img">
+                        <p>Código: <?php echo htmlspecialchars($lineaPedido['codigoCarta']); ?></p>
+                        <p>Precio de la carta: <?php echo number_format($lineaPedido['precioCarta'], 2); ?> €</p>
+                    </div>
+
+                    <div class="linea-detalles">
+                        <h5>Detalles de la línea de pedido (ID:
+                            <?php echo htmlspecialchars($lineaPedido['linea_pedido_id']); ?>)
+                        </h5>
+                        <label for="cantidadSeleccionada">Cantidad:</label>
+                        <select id="cantidadSeleccionada">
+                            <?php for ($i = 1; $i <= $lineaPedido['cantidad']; $i++): ?>
+                                <option><?php echo $i; ?></option>
+                            <?php endfor; ?>
+                        </select>
+                        <p>Precio total de la línea: <?php echo number_format($lineaPedido['precioTotalLinea'], 2); ?> €</p>
+                    </div>
+                    <button class="botonEliminarCarrito" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"
+                        method="post">Eliminar Carrito</button>
+                    <hr>
                 </div>
+            <?php endforeach; ?>
 
-                <div class="carta-detalles">
-                    <h5>Carta: <?php echo htmlspecialchars($lineaPedido['nombreCarta']); ?></h5>
-                    <img src="<?php echo "../assets/images/" . htmlspecialchars($lineaPedido['img']); ?>" alt="<?php echo htmlspecialchars($lineaPedido['nombreCarta']); ?>" class="carta-img">
-                    <p>Código: <?php echo htmlspecialchars($lineaPedido['codigoCarta']); ?></p>
-                    <p>Precio de la carta: <?php echo number_format($lineaPedido['precioCarta'], 2); ?> €</p>
-                </div>
+            <hr>
 
-                <div class="linea-detalles">
-                    <h5>Detalles de la línea de pedido (ID: <?php echo htmlspecialchars($lineaPedido['linea_pedido_id']); ?>)</h5>
-                    <label for="cantidadSeleccionada">Cantidad:</label>
-                    <select id="cantidadSeleccionada">
-                        <?php for ($i = 0; $i <= $lineaPedido['cantidad']; $i++): ?>
-                            <option><?php echo $i; ?></option>
-                        <?php endfor; ?>
-                    </select>
-                    <p>Precio total de la línea: <?php echo number_format($lineaPedido['precioTotalLinea'], 2); ?> €</p>
-                </div>
-                <button class="botonEliminarCarrito" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">Eliminar Carrito</button>
-                <hr>
-            </div>
-        <?php endforeach; ?>
-
-        <hr>
+        </div>
+        <button type="submit" class="botonCompra">Comprar Ahora</button>
+        <img src="../assets/images/metodospago.png" id="imagenPago" alt="img-pagos">
+    <?php else: ?>
+        <h1>Tu carrito esta Vacio</h1>
+    <?php endif; ?>
     </div>
-    <button type="submit" class="botonCompra">Comprar Ahora</button>
-    <img src="../assets/images/metodospago.png" id="imagenPago" alt="img-pagos">
-    </div>
 
-</body>
+</body> -->
 <?php include '../includes/footer.php'; ?>
 
 </html>

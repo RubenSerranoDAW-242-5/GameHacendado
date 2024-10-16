@@ -19,6 +19,8 @@ class conexionBD
         $resultado = $this->conBd->query($query);
         if ($resultado->num_rows > 0) {
             return $resultado->fetch_assoc();
+        }else{
+            return false;
         }
     }
     function querySelectMuchos($query)
@@ -26,6 +28,8 @@ class conexionBD
         $resultado = $this->conBd->query($query);
         if ($resultado->num_rows > 0) {
             return $resultado->fetch_all(MYSQLI_ASSOC);
+        }else{
+            return false;
         }
     }
     function queryInsert($query)

@@ -9,7 +9,10 @@
     <script src="../assets/js/loadout.js" defer></script>
     <?php
     session_start();
+
     include("../config/ConexionBD.php");
+    include '../includes/header.php';
+
     $bd->conectar();
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['usuario']) && isset($_POST['contra'])) {
@@ -22,9 +25,22 @@
             if ($resultado['contraseña'] == $contra && $resultado['email'] == $usuarioEmail) {
 
                 $_SESSION['email'] = $resultado['email'];
-                $_SESSION['id'] = (int)$resultado['id'];
+                $_SESSION['id'] = (int) $resultado['id'];
                 $_SESSION['rol'] = $resultado['rol'];
-                $_SESSION['carrito-contador'] = 0;
+                $idUsuario = $_SESSION['id'];
+                $query = "SELECT COUNT(lp.id) AS numero_lineas_pedido
+                          FROM Pedidos p
+                          JOIN LineaPedidos lp ON p.id = lp.idPedido
+                          WHERE p.idUsuario = $idUsuario;";
+                $bd->conectar();
+                $reslutado = $bd->querySelectUno($query);
+                $bd->desconectar();
+                if ($reslutado) {
+                    $_SESSION['carrito-contador'] = (int)$reslutado['numero_lineas_pedido'];
+                } else {
+                    $_SESSION['carrito-contador'] = 0;
+                }
+
 
                 if ($resultado['rol'] == "admin") {
                     header("Location: ../admin/index.php?id= " . $_SESSION['id'] . "&&email=" . $_SESSION['email'] .
@@ -46,7 +62,6 @@
 </head>
 
 <body>
-
     <form id="formLogin" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <img src="../assets/images/logo.webp" id="logo">
 

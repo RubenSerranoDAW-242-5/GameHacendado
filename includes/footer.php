@@ -19,7 +19,7 @@
             <h3>Contacto</h3>
             <p>Email: info@gamehacendado.com</p>
             <p>Teléfono: +34 123 456 789</p>
-            <p>Dirección: Calle de los Gamers, 123, Madrid</p>
+            <p>Dirección: Calle de los Gamers, 123, Alicante/Alicant</p>
         </div>
     </div>
     <div class="footer-bottom">

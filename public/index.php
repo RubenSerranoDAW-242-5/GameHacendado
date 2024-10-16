@@ -17,7 +17,6 @@
         $idUsuario = $_SESSION['id'];
     }
 
-
     $bd->conectar();
     $query = "SELECT * FROM Carta";
     $listadoCartas = $bd->querySelectMuchos($query);
@@ -34,15 +33,15 @@
         $resultado = $bd->querySelectUno($query);
 
         $idPedido = $resultado["id"];
+        $idCarta = $_POST["idCarta"];
+        $catidad_de_cartas = intval($_POST['cantidad-' . $idCarta]);
 
         $query = "SELECT * FROM Carta WHERE id = $idCarta LIMIT 1";
         $cartaSeleccionada = $bd->querySelectUno($query);
-        $precioTotalLinea = $cartaSeleccionada["precioCarta"] * $catidad_de_cartas;
+        $precioTotalLinea = (double) $cartaSeleccionada["precioCarta"] * $catidad_de_cartas;
 
         $bd->desconectar();
 
-        $idCarta = $_POST['idCarta'];
-        $catidad_de_cartas = intval($_POST['cantidad-' . $idCarta]);
         $_SESSION['carrito-contador']++;
 
         if (!$resultado) {
@@ -65,6 +64,7 @@
                           (SELECT SUM(precioTotalLinea) FROM LineaPedidos WHERE idPedido = $idPedido) 
                           WHERE id = $idPedido;";
                 $bd->queryUpdate($query);
+
             } catch (Exception $e) {
                 echo "Error al insertar: " . $e->getMessage();
             }
@@ -98,6 +98,7 @@
 <body>
     <div id="flex-box">
         <div id="grid">
+
             <?php foreach ($listadoCartas as $carta): ?>
                 <div class="carta" hr>
                     <img src="<?php echo "../assets/images/" . $carta['img']; ?>" alt="<?php echo $carta['nombreCarta']; ?>"
