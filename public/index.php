@@ -22,37 +22,37 @@
     $listadoCartas = $bd->querySelectMuchos($query);
     $bd->desconectar();
 
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
         $bd->conectar();
 
-        $query = "SELECT id
+        $query = "SELECT *
                   FROM Pedidos 
-                  WHERE idUsuario = $idUsuario AND estado = 'en-proceso'";
-        $resultado = $bd->querySelectUno($query);
-
-        $idPedido = $resultado["id"];
+                  WHERE idUsuario = $idUsuario AND estado = 'en-proceso' LIMIT 1";
+        $resultado = $bd->querySelectMuchos($query);
+        $idPedido = $resultado[0]["id"];
         $idCarta = $_POST["idCarta"];
         $catidad_de_cartas = intval($_POST['cantidad-' . $idCarta]);
 
         $query = "SELECT * FROM Carta WHERE id = $idCarta LIMIT 1";
-        $cartaSeleccionada = $bd->querySelectUno($query);
-        $precioTotalLinea = (double) $cartaSeleccionada["precioCarta"] * $catidad_de_cartas;
+        $cartaSeleccionada = $bd->querySelectMuchos($query);
+        $precioTotalLinea = (double) $cartaSeleccionada[0]["precioCarta"] * $catidad_de_cartas;
 
         $bd->desconectar();
 
         $_SESSION['carrito-contador']++;
-
         if (!$resultado) {
             try {
                 $bd->conectar();
 
+                $query = "SELECT direccion  FROM usuario WHERE id = $idUsuario";
+                $direccionSelect = $bd->querySelectUno($query);
+                $direccionEnvio = $direccionSelect["direccion"];
+
                 // creacion del pedido
                 $query = "INSERT INTO Pedidos (fecha, precioTotal, direccionEnvio,idUsuario)
-                      VALUES (NOW(), NULL, NULL,$idUsuario);";
+                      VALUES (NULL, NULL, '$direccionEnvio',$idUsuario);";
                 $bd->queryInsert($query);
-
+                $idPedido = $bd->lastInsertId();
                 // creacion una linea de pedido
                 $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido,IdCarta)
                       VALUES ($catidad_de_cartas, $precioTotalLinea, $idPedido, $idCarta);";
@@ -64,6 +64,7 @@
                           (SELECT SUM(precioTotalLinea) FROM LineaPedidos WHERE idPedido = $idPedido) 
                           WHERE id = $idPedido;";
                 $bd->queryUpdate($query);
+
 
             } catch (Exception $e) {
                 echo "Error al insertar: " . $e->getMessage();
@@ -87,10 +88,6 @@
             $bd->desconectar();
         }
 
-        header("Location: " . $_SERVER['PHP_SELF'] . "?lineasPedido=" . $_SESSION['carrito-contador'] .
-            "&cantidadCartas=" . $catidad_de_cartas .
-            "&idCarta=$idCarta");
-        exit();
     }
     ?>
 </head>
@@ -98,7 +95,6 @@
 <body>
     <div id="flex-box">
         <div id="grid">
-
             <?php foreach ($listadoCartas as $carta): ?>
                 <div class="carta" hr>
                     <img src="<?php echo "../assets/images/" . $carta['img']; ?>" alt="<?php echo $carta['nombreCarta']; ?>"
@@ -111,7 +107,7 @@
                     <p id="precioCarta">Precio: <?php echo number_format($carta['precioCarta'], 2); ?>€</p>
 
                     <?php if (isset($_SESSION['email'])): ?>
-                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                             <div class="cantidad-controles">
                                 <button type="button" class="btn-menos" data-id="<?php echo $carta['id']; ?>">-</button>
                                 <input type="number" id="cantidad-<?php echo $carta['id']; ?>" min="1"

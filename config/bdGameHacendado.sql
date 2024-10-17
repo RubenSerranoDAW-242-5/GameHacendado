@@ -24,7 +24,6 @@ VALUES
     
     SELECT * FROM Usuario;
 
-
 DROP TABLE IF EXISTS Pedidos;
 
 CREATE TABLE
@@ -37,6 +36,9 @@ CREATE TABLE
         idUsuario BIGINT NOT NULL,
         FOREIGN KEY (idUsuario) REFERENCES Usuario (id)
     );
+    
+    SELECT * FROM pedidos;
+    
 INSERT INTO Pedidos (fecha, precioTotal, direccionEnvio, estado, idUsuario)
 VALUES
 (NOW(), 300.00, 'Av. Siempreviva 456, Barcelona', 'en-proceso', 2);
@@ -62,6 +64,7 @@ VALUES
     (2, 374.00, 1, 1),
      (1, 159.00, 1, 2),
      (10,159.50,1,3);
+     
 SELECT * FROM lineapedidos;
 
 DROP TABLE IF EXISTS Carta;

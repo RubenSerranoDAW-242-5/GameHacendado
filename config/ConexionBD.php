@@ -59,6 +59,3 @@ class conexionBD
 }
 
 $bd = new conexionBD();
-
-
-?>
