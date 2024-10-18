@@ -54,7 +54,7 @@ class conexionBD
             return false;
     }
     function lastInsertId() {
-        return $this->conBd->lastInsertId();
+        return $this->conBd->insert_id;
     }
 }
 

@@ -42,7 +42,6 @@ CREATE TABLE
 INSERT INTO Pedidos (fecha, precioTotal, direccionEnvio, estado, idUsuario)
 VALUES
 (NOW(), 300.00, 'Av. Siempreviva 456, Barcelona', 'en-proceso', 2);
-SELECT * FROM pedidos;
 
 DROP TABLE IF EXISTS LineaPedidos;
 
@@ -53,11 +52,9 @@ CREATE TABLE
         precioTotalLinea DECIMAL(10,2) ,
         idPedido BIGINT NOT NULL,
         FOREIGN KEY (idPedido) REFERENCES Pedidos (id),
-        idCarta BIGINT NOT NULL,
+        idCarta BIGINT NOT NULL UNIQUE,
         FOREIGN KEY (idCarta) REFERENCES Carta (id)
     );
-
-
 
 INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido, idCarta)
 VALUES
