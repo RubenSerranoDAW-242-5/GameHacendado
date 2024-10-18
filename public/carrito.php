@@ -23,7 +23,8 @@
                   p.direccionEnvio, 
                   lp.id AS linea_pedido_id, 
                   lp.cantidad, 
-                  lp.precioTotalLinea, 
+                  lp.precioTotalLinea,
+                  c.id AS carta_id, 
                   c.nombreCarta, 
                   c.precioCarta,
                   c.codigoCarta,
@@ -39,15 +40,8 @@
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // cambiar estado del  pedido a terminado y actulizar datos como envio etc con una variable para identificar eliminar o comprar
-        $accionCompraEliminar = $_POST["comprar-Eliminar"];
-        switch ($accionCompraEliminar) {
-            case "eliminar":
-                include "../includes/eliminarCarrito.php";
-                break;
-            case "comprar":
-                include "../includes/comprarCarrito.php";
-                break;
-        }
+        $idCartaEliminar = $_POST["eliminarCarta"];
+        include "../includes/eliminarCarrito.php";
     }
     ?>
 </head>
@@ -56,9 +50,9 @@
     <div class="container">
         <h1>Carrito de Compras</h1>
         <?php if (!empty($listaPedidos) && isset($_SESSION['carrito-contador'])): ?>
+
             <div class="pedido-detalles">
                 <h4>Pedido ID: <?php echo htmlspecialchars($listaPedidos[0]['pedido_id']); ?></h4>
-                <!-- <p>Fecha: <?php echo htmlspecialchars($listaPedidos[0]['fecha']); ?></p> -->
                 <p>Precio total del pedido: <?php echo number_format($listaPedidos[0]['precioTotal'], 2); ?> €</p>
                 <p>Dirección de envío: <?php echo htmlspecialchars($listaPedidos[0]['direccionEnvio']); ?></p>
             </div>
@@ -87,14 +81,14 @@
                     </div>
 
                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-                        <input type="hidden" name="comprar-Eliminar" value="eliminar">
+                        <input type="hidden" name="eliminarCarta" value="<?php echo $lineaPedido['carta_id'] ?>">
                         <button type="submit" class="botonEliminarCarrito">Eliminar</button>
                     </form>
                 </div>
             <?php endforeach; ?>
 
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-                <input type="hidden" name="comprar-Eliminar" value="comprar">
+            <form action="../includes/comprarCarrito.php?" method="get">
+                <input type="hidden" name="idPedido" value="idPedido=<?php echo $lineaPedido['pedido_id'] ?>">
                 <button type="submit" class="botonCompra">Comprar Ahora</button>
             </form>
 

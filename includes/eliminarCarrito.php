@@ -1,7 +1,5 @@
 <?php 
 
-include "../config/ConexionBD.php";
-
 // $bd->conectar();
 // $query = "";
 // $resultado = $bd->queryDelete($query);
