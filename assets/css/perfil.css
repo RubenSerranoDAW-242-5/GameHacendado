@@ -6,9 +6,9 @@ body {
 }
 
 .usuario {
-    width: 100%; /* Ocupar todo el ancho de la pantalla */
-    max-width: 800px; /* Limitar el ancho máximo si es necesario */
-    margin: 50px auto; /* Centrar horizontalmente */
+    width: 100%;
+    max-width: 800px; 
+    margin: 50px auto;
     padding: 20px;
     background-color: #ffffff;
     border: 1px solid #00bfff;
@@ -25,20 +25,21 @@ body {
 
 .usuario form {
     display: flex;
-    flex-direction: column; /* Disposición vertical de los campos */
+    flex-direction: column;
 }
 
 .usuario label {
     font-weight: bold;
-    margin: 10px 0 5px; /* Espaciado vertical */
+    margin: 10px 0 5px; 
     color: #007bff;
 }
 
 .usuario input[type="text"],
-.usuario input[type="email"] {
+.usuario input[type="email"],
+.usuario input[type="password"] {
     width: 100%;
     padding: 12px;
-    margin-bottom: 15px; /* Espaciado entre campos */
+    margin-bottom: 15px; 
     border: 1px solid #00bfff;
     border-radius: 5px;
     box-sizing: border-box;
@@ -48,7 +49,8 @@ body {
 }
 
 .usuario input[type="text"]:focus,
-.usuario input[type="email"]:focus {
+.usuario input[type="email"]:focus,
+.usuario input[type="password"]:focus {
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);

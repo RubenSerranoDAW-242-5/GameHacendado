@@ -64,7 +64,7 @@
                 <input type="text" id="dni" name="dni" value="<?php echo htmlspecialchars($Usuario['dni']); ?>" required>
 
                 <label for="contra">Contraseña:</label>
-                <input type="text" id="contra" name="contra" value="<?php echo htmlspecialchars($Usuario['contraseña']); ?>" required>
+                <input type="password" id="contra" name="contra" value="<?php echo htmlspecialchars($Usuario['contraseña']); ?>" required>
 
                 <label for="direccion">Dirección:</label>
                 <input type="text" id="direccion" name="direccion" value="<?php echo htmlspecialchars($Usuario['direccion']); ?>" required>
