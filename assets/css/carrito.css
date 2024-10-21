@@ -1,6 +1,7 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f8f9fa; /* Fondo claro */
+    background-color: #f8f9fa;
+    /* Fondo claro */
     margin: 0;
     padding: 0;
 }
@@ -12,73 +13,99 @@ body {
 }
 
 h1 {
-    color: #007bff; /* Color azul para el título */
+    color: #007bff;
+    /* Color azul para el título */
     text-align: center;
 }
 
 .pedido-detalles {
-    background-color: #ffffff; /* Fondo blanco */
-    border: 1px solid #ddd; /* Borde gris */
+    background-color: #ffffff;
+    /* Fondo blanco */
+    border: 1px solid #ddd;
+    /* Borde gris */
     border-radius: 5px;
     padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
-    margin-bottom: 20px; /* Espaciado inferior */
-    text-align: center; /* Centrar texto */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Sombra */
+    margin-bottom: 20px;
+    /* Espaciado inferior */
+    text-align: center;
+    /* Centrar texto */
 }
 
 .linea-pedido {
     display: flex;
-    justify-content: space-between; /* Distribuye el espacio entre los elementos */
-    align-items: center; /* Alinea verticalmente */
-    background-color: #ffffff; /* Fondo blanco */
-    border: 1px solid #ddd; /* Borde gris */
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 15px; /* Espaciado interno */
-    margin-bottom: 15px; /* Margen inferior */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    justify-content: space-between;
+    /* Distribuye el espacio entre los elementos */
+    align-items: center;
+    /* Alinea verticalmente */
+    background-color: #ffffff;
+    /* Fondo blanco */
+    border: 1px solid #ddd;
+    /* Borde gris */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    padding: 15px;
+    /* Espaciado interno */
+    margin-bottom: 15px;
+    /* Margen inferior */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil */
 }
 
 .carta-detalles {
     display: flex;
-    align-items: center; /* Alinea verticalmente los elementos dentro */
+    align-items: center;
+    /* Alinea verticalmente los elementos dentro */
 }
 
 .carta-detalles img {
-    width: 120px; /* Ajusta el ancho de la imagen */
-    height: auto; /* Mantén la proporción */
-    margin-right: 20px; /* Espaciado a la derecha */
+    width: 120px;
+    /* Ajusta el ancho de la imagen */
+    height: auto;
+    /* Mantén la proporción */
+    margin-right: 20px;
+    /* Espaciado a la derecha */
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra en la imagen */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Sombra en la imagen */
 }
 
 .carta-detalles h5 {
-    color: #007bff; /* Color azul para el título de la carta */
+    color: #007bff;
+    /* Color azul para el título de la carta */
 }
 
 .linea-detalles {
     text-align: left;
-    margin-right: 20px; /* Espaciado a la derecha */
+    margin-right: 20px;
+    /* Espaciado a la derecha */
 }
 
-.linea-detalles h5, .linea-detalles p {
-    margin: 0 0 10px 0; /* Espaciado inferior */
+.linea-detalles h5,
+.linea-detalles p {
+    margin: 0 0 10px 0;
+    /* Espaciado inferior */
 }
 
 select {
-    font-size: large; /* Tamaño de fuente grande */
+    font-size: large;
+    /* Tamaño de fuente grande */
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #ffffff;
     color: #333;
-    width: 60px; /* Ancho fijo */
+    width: 60px;
+    /* Ancho fijo */
     margin-top: 5px;
     transition: border-color 0.3s;
 }
 
 .botonEliminarCarrito {
     padding: 10px 20px;
-    background-color: #dc3545; /* Botón rojo */
+    background-color: #dc3545;
+    /* Botón rojo */
     color: white;
     border: none;
     border-radius: 5px;
@@ -87,11 +114,13 @@ select {
 }
 
 .botonEliminarCarrito:hover {
-    background-color: #c82333; /* Rojo más oscuro al pasar el mouse */
+    background-color: #c82333;
+    /* Rojo más oscuro al pasar el mouse */
 }
 
 .botonCompra {
-    background-color: #28a745; /* Botón verde */
+    background-color: #28a745;
+    /* Botón verde */
     color: white;
     padding: 15px;
     border: none;
@@ -99,11 +128,31 @@ select {
     font-size: x-large;
     cursor: pointer;
     margin-top: 20px;
-    width: 100%; /* Botón ancho completo */
+    width: 100%;
+    /* Botón ancho completo */
 }
 
 .botonCompra:hover {
-    background-color: #218838; /* Verde más oscuro */
+    background-color: #218838;
+    /* Verde más oscuro */
+}
+.botonVaciar {
+    background-color: #dc3545;
+    /* Botón verde */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: x-large;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    /* Botón ancho completo */
+}
+
+.botonVaciar:hover {
+    background-color: #c82333;
+    /* Verde más oscuro */
 }
 
 #imagenPago {

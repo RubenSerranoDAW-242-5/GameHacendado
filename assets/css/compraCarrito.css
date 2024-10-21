@@ -1,0 +1,46 @@
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #007bff;
+}
+
+.receipt-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.receipt-header p {
+    margin: 5px 0;
+    font-weight: 600;
+}
+
+.receipt-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.receipt-table th, .receipt-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.receipt-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+tfoot td {
+    font-weight: bold;
+}

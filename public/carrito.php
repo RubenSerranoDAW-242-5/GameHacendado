@@ -40,7 +40,6 @@
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // cambiar estado del  pedido a terminado y actulizar datos como envio etc con una variable para identificar eliminar o comprar
-        $idCartaEliminar = $_POST["eliminarCarta"];
         include "../includes/eliminarCarrito.php";
     }
     ?>
@@ -56,46 +55,58 @@
                 <p>Precio total del pedido: <?php echo number_format($listaPedidos[0]['precioTotal'], 2); ?> €</p>
                 <p>Dirección de envío: <?php echo htmlspecialchars($listaPedidos[0]['direccionEnvio']); ?></p>
             </div>
-
-            <?php foreach ($listaPedidos as $lineaPedido): ?>
-                <div class="linea-pedido">
-                    <div class="carta-detalles">
-                        <img src="<?php echo "../assets/images/" . htmlspecialchars($lineaPedido['img']); ?>"
-                            alt="<?php echo htmlspecialchars($lineaPedido['nombreCarta']); ?>">
-                        <div>
-                            <h5><?php echo htmlspecialchars($lineaPedido['nombreCarta']); ?></h5>
-                            <p>Código: <?php echo htmlspecialchars($lineaPedido['codigoCarta']); ?></p>
-                            <p>Precio: <?php echo number_format($lineaPedido['precioCarta'], 2); ?> €</p>
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                <?php foreach ($listaPedidos as $lineaPedido): ?>
+                    <div class="linea-pedido">
+                        <div class="carta-detalles">
+                            <img src="<?php echo "../assets/images/" . htmlspecialchars($lineaPedido['img']); ?>"
+                                alt="<?php echo htmlspecialchars($lineaPedido['nombreCarta']); ?>">
+                            <div>
+                                <h5><?php echo htmlspecialchars($lineaPedido['nombreCarta']); ?></h5>
+                                <p>Código: <?php echo htmlspecialchars($lineaPedido['codigoCarta']); ?></p>
+                                <p>Precio: <?php echo number_format($lineaPedido['precioCarta'], 2); ?> €</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="linea-detalles">
-                        <h5>Línea de Pedido (ID: <?php echo htmlspecialchars($lineaPedido['linea_pedido_id']); ?>)</h5>
-                        <label for="cantidadSeleccionada">Cantidad:</label>
-                        <select id="cantidadSeleccionada" name="cantidadSeleccionada">
-                            <?php for ($i = 1; $i <= $lineaPedido['cantidad']; $i++): ?>
-                                <option><?php echo $i; ?></option>
-                            <?php endfor; ?>
-                        </select>
-                        <p>Total línea: <?php echo number_format($lineaPedido['precioTotalLinea'], 2); ?> €</p>
-                    </div>
+                        <div class="linea-detalles">
+                            <h5>Línea de Pedido (ID: <?php echo htmlspecialchars($lineaPedido['linea_pedido_id']); ?>)</h5>
+                            <label for="cantidadSeleccionada">Cantidad:</label>
+                            <select id="cantidadSeleccionada" name="cantidadSeleccionada">
+                                <?php for ($i = 1; $i <= $lineaPedido['cantidad']; $i++): ?>
+                                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <p>Total línea: <?php echo number_format($lineaPedido['precioTotalLinea'], 2); ?> €</p>
+                        </div>
 
-                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-                        <input type="hidden" name="eliminarCarta" value="<?php echo $lineaPedido['carta_id'] ?>">
+
+                        <input type="hidden" name="eliminar" value="eliminar_carta">
+                        <input type="hidden" name="idCarta" value="<?php echo $lineaPedido['carta_id'] ?>">
+                        <input type="hidden" name="idPedido" value="<?php echo $lineaPedido['pedido_id'] ?>">
+                        <input type="hidden" name="eliminarIdLineaPedido" value="<?php echo $lineaPedido['linea_pedido_id'] ?>">
                         <button type="submit" class="botonEliminarCarrito">Eliminar</button>
-                    </form>
-                </div>
-            <?php endforeach; ?>
+                </form>
+            </div>
 
-            <form action="../includes/comprarCarrito.php?" method="get">
-                <input type="hidden" name="idPedido" value="idPedido=<?php echo $lineaPedido['pedido_id'] ?>">
-                <button type="submit" class="botonCompra">Comprar Ahora</button>
-            </form>
+        <?php endforeach; ?>
 
-            <img src="../assets/images/metodospago.png" id="imagenPago" alt="Métodos de pago">
-        <?php else: ?>
-            <h1>Tu carrito está vacío</h1>
-        <?php endif; ?>
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+            <input type="hidden" name="eliminar" value="eliminar_pedido">
+            <input type="hidden" name="idPedido" value="idPedido=<?php echo $lineaPedido['pedido_id'] ?>">
+            <button type="submit" class="botonVaciar">Vaciar Carrito</button>
+        </form>
+
+        <form action="../includes/compraCarrito.php?" method="get">
+            <input type="hidden" name="eliminarCarta" value="<?php echo $lineaPedido['carta_id'] ?>">
+            <input type="hidden" name="eliminarCantidad" value="<?php echo $lineaPedido['cantidad'] ?>">
+            <input type="hidden" name="idPedido" value="idPedido=<?php echo $lineaPedido['pedido_id'] ?>">
+            <button type="submit" class="botonCompra">Comprar Ahora</button>
+        </form>
+
+        <img src="../assets/images/metodospago.png" id="imagenPago" alt="Métodos de pago">
+    <?php else: ?>
+        <h1>Tu carrito está vacío</h1>
+    <?php endif; ?>
     </div>
 
 </body>
