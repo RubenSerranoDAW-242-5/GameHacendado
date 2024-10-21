@@ -102,57 +102,52 @@ select {
     transition: border-color 0.3s;
 }
 
-.botonEliminarCarrito {
-    padding: 10px 20px;
-    background-color: #dc3545;
-    /* Botón rojo */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 20px;
-}
-
-.botonEliminarCarrito:hover {
-    background-color: #c82333;
-    /* Rojo más oscuro al pasar el mouse */
-}
-
 .botonCompra {
     background-color: #28a745;
-    /* Botón verde */
     color: white;
     padding: 15px;
     border: none;
     border-radius: 10px;
-    font-size: x-large;
+    font-size: calc(1.2em + 1vw); /* Tamaño dinámico basado en el ancho de la pantalla */
     cursor: pointer;
-    margin-top: 20px;
-    width: 100%;
-    /* Botón ancho completo */
+    margin: 20px auto; /* Márgenes automáticos para centrar */
+    width: 70%; /* Ancho del 50% para que no ocupe todo el espacio */
+    display: block; /* Asegura que se comporte como un bloque para centrado */
 }
 
 .botonCompra:hover {
     background-color: #218838;
-    /* Verde más oscuro */
 }
+
 .botonVaciar {
     background-color: #dc3545;
-    /* Botón verde */
     color: white;
     padding: 15px;
     border: none;
     border-radius: 10px;
-    font-size: x-large;
+    font-size: calc(1.2em + 1vw); /* Tamaño dinámico basado en el ancho de la pantalla */
     cursor: pointer;
-    margin-top: 20px;
-    width: 100%;
-    /* Botón ancho completo */
+    margin: 20px auto; /* Márgenes automáticos para centrar */
+    width: 70%; /* Ancho del 50% para que no ocupe todo el espacio */
+    display: block; /* Asegura que se comporte como un bloque para centrado */
 }
 
 .botonVaciar:hover {
     background-color: #c82333;
-    /* Verde más oscuro */
+}
+
+.botonEliminarCarrito {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px; /* Tamaño dinámico basado en el ancho de la pantalla */
+    cursor: pointer;
+}
+
+.botonEliminarCarrito:hover {
+    background-color: #c82333;
 }
 
 #imagenPago {

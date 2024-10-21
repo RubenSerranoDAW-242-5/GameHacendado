@@ -1,22 +1,3 @@
-<?php
-//controlar la fecha de compra
-
-// $bd->conectar();
-// $query = "";
-// $bd->queryUpdate($query);//hacer el update de pedido terminado y poner contador a cero
-?>
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Compra Hecha</h1>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -24,26 +5,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recibo de Compra</title>
-    
+
     <?php
+    session_start();
+
     include '../config/ConexionBD.php';
-    include '../includes/header.php'; 
+    include '../includes/header.php';
+
+    if (!isset($_SESSION['gastoEnvio'])) {
+        $_SESSION['gastoEnvio'] = mt_rand(1, 5);
+    }
+
+    if (isset($_SESSION['id'])) {
+
+        $idUsuario = $_SESSION['id'];
+    }
+
+    $gastoEnvio = $_SESSION['gastoEnvio'];
+    $idPedido = $_GET['idPedido'];
+
+    $bd->conectar();
+    $query = "SELECT p.id AS pedido_id, 
+                p.precioTotal AS total_pedido,
+                p.direccionEnvio, 
+                u.nombre AS nombre_cliente, 
+                u.apellido AS apellido_cliente,
+                u.telefono AS telefono_cliente,
+                lp.cantidad,
+                lp.precioTotalLinea AS total_linea, 
+                c.nombreCarta, 
+                c.precioCarta
+         FROM 
+            Pedidos p 
+         JOIN 
+            Usuario u ON p.idUsuario = u.id
+         JOIN 
+            LineaPedidos lp ON p.id = lp.idPedido 
+         JOIN 
+            Carta c ON lp.idCarta = c.id
+         WHERE p.id = $idPedido;";
+    $listaPedidos = $bd->querySelectMuchos($query);
+
+    $bd->desconectar();
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        //hacer el update de el pedido a finalizado, poner el contador de pedidos poner a 0 y redirigir a index con carrito vacio
+        $_SESSION['gastoEnvio'] = 0;
+    }
     ?>
     <link rel="stylesheet" href="../assets/css/compraCarrito.css">
 </head>
 
 <body>
 
-    <div class="receipt-container">
+    <div class="contenedor-recibo">
+
         <h1>Recibo de Compra</h1>
-        <div class="receipt-header">
-            <p><strong>Pedido No:</strong> 123456</p>
-            <p><strong>Fecha:</strong> 21 de Octubre de 2024</p>
-            <p><strong>Cliente:</strong> Juan Pérez</p>
-            <p><strong>Dirección de envío:</strong> Calle Falsa 123, Ciudad</p>
+        <div class="recibo-header">
+            <p><strong>Pedido No:</strong> <?php echo $listaPedidos[0]['pedido_id']; ?></p>
+            <p><strong>Fecha:</strong> <?php echo date('Y-m-d H:i:s'); ?></p>
+            <p><strong>Nombre Usuario:</strong> <?php echo  $listaPedidos[0]['nombre_cliente'] . " " . $listaPedidos[0]['apellido_cliente']; ?></p>
+            <p><strong>Dirección de envío:</strong><?php echo $listaPedidos[0]['direccionEnvio'] ?></p>
         </div>
 
-        <table class="receipt-table">
+        <table class="tabla-recibo">
             <thead>
                 <tr>
                     <th>Producto</th>
@@ -53,69 +77,37 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Producto A</td>
-                    <td>2</td>
-                    <td>$10.00</td>
-                    <td>$20.00</td>
-                </tr>
-                <tr>
-                    <td>Producto B</td>
-                    <td>1</td>
-                    <td>$15.00</td>
-                    <td>$15.00</td>
-                </tr>
-                <tr>
-                    <td>Producto C</td>
-                    <td>3</td>
-                    <td>$7.50</td>
-                    <td>$22.50</td>
-                </tr>
+                <?php foreach ($listaPedidos as $listaLineaPedido): ?>
+                    <tr>
+                        <td><?php echo $listaLineaPedido['nombreCarta'] ?></td>
+                        <td><?php echo $listaLineaPedido['cantidad'] ?></td>
+                        <td>€<?php echo $listaLineaPedido['precioCarta'] ?></td>
+                        <td>€<?php echo $listaLineaPedido['total_linea'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="3"><strong>Subtotal</strong></td>
-                    <td>$57.50</td>
+                    <td>€<?php echo $listaLineaPedido['total_pedido'] ?></td>
                 </tr>
                 <tr>
                     <td colspan="3"><strong>Envío</strong></td>
-                    <td>$5.00</td>
+                    <td>€<?php echo $gastoEnvio ?>,00</td>
                 </tr>
                 <tr>
                     <td colspan="3"><strong>Total</strong></td>
-                    <td>$62.50</td>
+                    <td>€<?php echo $listaLineaPedido['total_pedido'] + $gastoEnvio; ?></td>
                 </tr>
             </tfoot>
         </table>
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+
+            <button type="submit" class="botonFinalizarCompra">Finalizar Compra</button>
+        </form>
     </div>
+
     <?php include "../includes/footer.php"; ?>
-    <!-- <footer id="pie">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h2>Contacto</h2>
-                <p>Email: contacto@tienda.com</p>
-                <p>Teléfono: +34 123 456 789</p>
-            </div>
-            <div class="footer-section">
-                <h2>Síguenos</h2>
-                <ul>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">Instagram</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h2>Ayuda</h2>
-                <ul>
-                    <li><a href="#">Política de Devoluciones</a></li>
-                    <li><a href="#">Términos y Condiciones</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Tienda Online. Todos los derechos reservados.</p>
-        </div>
-    </footer> -->
 
 </body>
 

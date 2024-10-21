@@ -11,7 +11,7 @@ h1 {
     color: #007bff;
 }
 
-.receipt-container {
+.contenedor-recibo {
     max-width: 800px;
     margin: 50px auto;
     background-color: white;
@@ -19,28 +19,45 @@ h1 {
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.receipt-header p {
+.recibo-header p {
     margin: 5px 0;
     font-weight: 600;
 }
 
-.receipt-table {
+.tabla-recibo {
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
 }
 
-.receipt-table th, .receipt-table td {
+.rtabla-recibo th, .tabla-recibo td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
 }
 
-.receipt-table th {
+.tabla-recibo th {
     background-color: #007bff;
     color: white;
 }
 
 tfoot td {
     font-weight: bold;
+}
+
+.botonFinalizarCompra {
+    background-color: #28a745;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: calc(1.2em + 1vw); /* Tamaño dinámico basado en el ancho de la pantalla */
+    cursor: pointer;
+    margin: 20px auto; /* Márgenes automáticos para centrar */
+    width: 70%; /* Ancho del 50% para que no ocupe todo el espacio */
+    display: block; /* Asegura que se comporte como un bloque para centrado */
+}
+
+.botonFinalizarCompra:hover {
+    background-color: #218838;
 }

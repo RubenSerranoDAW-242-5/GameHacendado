@@ -27,6 +27,7 @@
                 $bd->conectar();
                 $resdni = $bd->querySelectUno($queryDni);
                 $bd->desconectar();
+
                 if (!$resdni) {
 
                     $nombre = $_POST['nombre'];
@@ -41,6 +42,7 @@
                     $bd->conectar();
                     $res = $bd->queryInsert($query);
                     $bd->desconectar();
+                    
                     if ($res) {
                         header("Location:login.php");
                     } else {

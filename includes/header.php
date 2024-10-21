@@ -5,9 +5,17 @@
 $ruta = $_SERVER['REQUEST_URI'];
 $rutaSeparada = explode('/', trim($ruta, '/'));
 ?>
+<script>
+    function redirigir() {
+
+        const baseUrl = window.location.origin + '/GameHacendado/public/index.php';
+
+        window.location.href = baseUrl;
+    }
+</script>
 <header id="cabezera">
     <div class="logo">
-        <img src="../assets/images/logo.webp" onclick="window.location.href='index.php'" >
+        <img src="../assets/images/logo.webp" onclick="redirigir()">
         <h1>GameHacendado</h1>
     </div>
     <?php if (str_contains($rutaSeparada[count($rutaSeparada) - 1], 'carrito.php')): ?>
@@ -58,5 +66,6 @@ $rutaSeparada = explode('/', trim($ruta, '/'));
                 <button class="cerrarSesion" onclick="window.location.href='logout.php'">Cerrar Sesión</button>
             </div>
         <?php endif; ?>
+
     <?php endif; ?>
 </header>

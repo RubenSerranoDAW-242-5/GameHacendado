@@ -12,6 +12,9 @@ CREATE TABLE
         direccion VARCHAR(800) NOT NULL,
         telefono VARCHAR(50) NOT NULL
     );
+
+SELECT * FROM usuario;
+
 INSERT INTO Usuario (nombre, apellido, email, dni, contraseña, rol, direccion, telefono)
 VALUES
     ('Juan', 'Pérez', 'juan.perez@example.com', '12345678A', 'password123', 'admin', 'Calle Falsa 123, Madrid', '+34 600 123 456'),
@@ -23,6 +26,7 @@ VALUES
     ('David', 'Martínez', 'david.martinez@example.com', '67890123G', 'davidPass!', 'admin', 'Calle Luna 101, Zaragoza', '+34 600 654 321');
     
     SELECT * FROM Usuario;
+
 
 DROP TABLE IF EXISTS Pedidos;
 
@@ -36,12 +40,10 @@ CREATE TABLE
         idUsuario BIGINT NOT NULL,
         FOREIGN KEY (idUsuario) REFERENCES Usuario (id)
     );
-    
-    SELECT * FROM pedidos;
-    
 INSERT INTO Pedidos (fecha, precioTotal, direccionEnvio, estado, idUsuario)
 VALUES
 (NOW(), 300.00, 'Av. Siempreviva 456, Barcelona', 'en-proceso', 2);
+SELECT * FROM pedidos;
 
 DROP TABLE IF EXISTS LineaPedidos;
 
@@ -52,17 +54,16 @@ CREATE TABLE
         precioTotalLinea DECIMAL(10,2) ,
         idPedido BIGINT NOT NULL,
         FOREIGN KEY (idPedido) REFERENCES Pedidos (id),
-        idCarta BIGINT NOT NULL UNIQUE,
+        idCarta BIGINT NOT NULL,
         FOREIGN KEY (idCarta) REFERENCES Carta (id)
     );
+
+
 
 INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido, idCarta)
 VALUES
     (2, 374.00, 1, 1),
-     (1, 159.00, 1, 2),
-     (10,159.50,1,3);
-     
-SELECT * FROM lineapedidos;
+     (1, 159.00, 1, 2);
 
 DROP TABLE IF EXISTS Carta;
 
