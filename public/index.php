@@ -13,6 +13,7 @@
 
     include '../includes/header.php';
     include '../config/ConexionBD.php';
+
     if (isset($_SESSION["email"])) {
         $idUsuario = $_SESSION['id'];
     }
@@ -28,18 +29,20 @@
 
         $query = "SELECT *
                   FROM Pedidos 
-                  WHERE idUsuario = $idUsuario AND estado = 'en-proceso' LIMIT 1";
+                  WHERE idUsuario = $idUsuario AND estado = 'en-proceso';";
         $resultado = $bd->querySelectUno($query);
 
         $idCarta = $_POST["idCarta"];
         $catidad_de_cartas = intval($_POST['cantidad-' . $idCarta]);
+
         $query = "SELECT * FROM Carta WHERE id = $idCarta LIMIT 1";
         $cartaSeleccionada = $bd->querySelectUno($query);
+
         $precioTotalLinea = (float) $cartaSeleccionada["precioCarta"] * $catidad_de_cartas;
 
         $bd->desconectar();
 
-        if (!$resultado) {
+        if ($resultado["estado"] !== "en-proceso") {
             try {
                 $bd->conectar();
 
@@ -52,6 +55,9 @@
                 $bd->queryInsert($query);
 
                 $idPedido = $bd->lastInsertId();
+
+                $_SESSION['idPedido'] = $idPedido;
+
                 $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido,IdCarta)
                       VALUES ($catidad_de_cartas, $precioTotalLinea, $idPedido, $idCarta);";
                 $bd->queryInsert($query);
@@ -75,6 +81,7 @@
                 $bd->conectar();
 
                 $idPedido = $resultado["id"];
+                $_SESSION['idPedido'] = $idPedido;
 
                 $query = "SELECT idCarta FROM LineaPedidos WHERE idCarta = $idCarta LIMIT 1";
                 $exiteCarta = $bd->querySelectUno($query);
@@ -130,6 +137,7 @@
 
                     <?php if (isset($_SESSION['email'])): ?>
                         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+
                             <div class="cantidad-controles">
                                 <button type="button" class="btn-menos" data-id="<?php echo $carta['id']; ?>">-</button>
                                 <input type="number" id="cantidad-<?php echo $carta['id']; ?>" min="1"
@@ -144,7 +152,6 @@
                     <?php else: ?>
                         <p>Cantidad: <?php echo htmlspecialchars($carta['cantidad']); ?></p>
                         <form>
-                            <input type="hidden" name="idCarta" value="<?php echo $carta['id']; ?>">
                             <button type="submit" disabled>Añadir a carrito</button>
                             <p style="color: red;">Inicia sesión para añadir al carrito</p>
                         </form>

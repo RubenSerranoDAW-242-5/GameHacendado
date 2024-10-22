@@ -7,6 +7,7 @@
     <title>Recibo de Compra</title>
 
     <?php
+
     session_start();
 
     include '../config/ConexionBD.php';
@@ -16,13 +17,15 @@
         $_SESSION['gastoEnvio'] = mt_rand(1, 5);
     }
 
-    if (isset($_SESSION['id'])) {
-
-        $idUsuario = $_SESSION['id'];
+    if (isset($_SESSION['idPedido'])) {
+        $idPedido = $_SESSION['idPedido'];
+    } else {
+        die("Error: Pedido no válido.");
     }
 
+
+
     $gastoEnvio = $_SESSION['gastoEnvio'];
-    $idPedido = $_GET['idPedido'];
 
     $bd->conectar();
     $query = "SELECT p.id AS pedido_id, 
@@ -44,13 +47,11 @@
          JOIN 
             Carta c ON lp.idCarta = c.id
          WHERE p.id = $idPedido;";
+
     $listaPedidos = $bd->querySelectMuchos($query);
 
     $bd->desconectar();
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        //hacer el update de el pedido a finalizado, poner el contador de pedidos poner a 0 y redirigir a index con carrito vacio
-        $_SESSION['gastoEnvio'] = 0;
-    }
+
     ?>
     <link rel="stylesheet" href="../assets/css/compraCarrito.css">
 </head>
@@ -63,7 +64,8 @@
         <div class="recibo-header">
             <p><strong>Pedido No:</strong> <?php echo $listaPedidos[0]['pedido_id']; ?></p>
             <p><strong>Fecha:</strong> <?php echo date('Y-m-d H:i:s'); ?></p>
-            <p><strong>Nombre Usuario:</strong> <?php echo  $listaPedidos[0]['nombre_cliente'] . " " . $listaPedidos[0]['apellido_cliente']; ?></p>
+            <p><strong>Nombre Usuario:</strong>
+                <?php echo $listaPedidos[0]['nombre_cliente'] . " " . $listaPedidos[0]['apellido_cliente']; ?></p>
             <p><strong>Dirección de envío:</strong><?php echo $listaPedidos[0]['direccionEnvio'] ?></p>
         </div>
 
@@ -101,8 +103,7 @@
                 </tr>
             </tfoot>
         </table>
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-
+        <form action="../includes/finalizarCompra.php" method="get">
             <button type="submit" class="botonFinalizarCompra">Finalizar Compra</button>
         </form>
     </div>

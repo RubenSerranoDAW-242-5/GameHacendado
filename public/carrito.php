@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="../assets/css/carrito.css">
     <?php
+    
     session_start();
 
     include '../config/ConexionBD.php';
@@ -98,8 +99,7 @@
         </div>
     </form>
 
-    <form action="../includes/compraCarrito.php?" method="get">
-        <input type="hidden" name="idPedido" value="<?php echo $lineaPedido['pedido_id'] ?>">
+    <form action="../includes/compraCarrito.php" method="get">
         <button type="submit" class="botonCompra">Comprar Ahora</button>
     </form>
 

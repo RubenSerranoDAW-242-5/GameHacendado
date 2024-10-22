@@ -24,9 +24,6 @@ VALUES
     ('Miguel', 'Torres', 'miguel.torres@example.com', '56789012E', 'miguel123', 'usuario', 'Paseo de la Castellana 654, Madrid', '+34 600 432 109'),
     ('Laura', 'López', 'laura.lopez@example.com', '09876543F', 'lauraSecure', 'usuario', 'Gran Vía 321, Málaga', '+34 600 543 210'),
     ('David', 'Martínez', 'david.martinez@example.com', '67890123G', 'davidPass!', 'admin', 'Calle Luna 101, Zaragoza', '+34 600 654 321');
-    
-    SELECT * FROM Usuario;
-
 
 DROP TABLE IF EXISTS Pedidos;
 
@@ -43,6 +40,7 @@ CREATE TABLE
 INSERT INTO Pedidos (fecha, precioTotal, direccionEnvio, estado, idUsuario)
 VALUES
 (NOW(), 300.00, 'Av. Siempreviva 456, Barcelona', 'en-proceso', 2);
+
 SELECT * FROM pedidos;
 
 DROP TABLE IF EXISTS LineaPedidos;
@@ -64,6 +62,8 @@ INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido, idCarta)
 VALUES
     (2, 374.00, 1, 1),
      (1, 159.00, 1, 2);
+     
+SELECT * FROM LineaPedidos;
 
 DROP TABLE IF EXISTS Carta;
 
@@ -216,3 +216,6 @@ JOIN
     LineaPedido_Carta lpc ON lp.id = lpc.idLineaPedido 
 JOIN 
     Carta c ON lpc.idCarta = c.id;
+    SELECT COUNT(*)
+                  FROM Pedidos 
+                  WHERE idUsuario = 2 AND estado LIKE'en-proceso';
