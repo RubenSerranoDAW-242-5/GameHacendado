@@ -2,8 +2,11 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <?php
+
 $ruta = $_SERVER['REQUEST_URI'];
 $rutaSeparada = explode('/', trim($ruta, '/'));
+
+
 ?>
 <script>
     function redirigir() {
@@ -31,10 +34,13 @@ $rutaSeparada = explode('/', trim($ruta, '/'));
 
     <?php elseif (str_contains($rutaSeparada[count($rutaSeparada) - 1], 'index.php')): ?>
 
-        <div class="search-bar">
-            <input type="text" placeholder="Buscar productos...">
-            <button type="submit">Buscar</button>
-        </div>
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="formBusqueda">
+            <div class="search-bar">
+                <input type="hidden" value="busqueda" name="metodoPost">
+                <input type="text" placeholder="Buscar productos..." name="textoBusqueda">
+                <button type="submit">Buscar</button>
+            </div>
+        </form>
 
         <?php if (isset($_SESSION['email'])): ?>
             <div class="icons">

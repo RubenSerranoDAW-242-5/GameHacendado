@@ -1,10 +1,22 @@
-<?php 
+<?php
 
 session_start();
 include '../config/ConexionBD.php';
 
 $idPedido = $_SESSION['idPedido'];
 $bd->conectar();
+
+$query = "SELECT idCarta,cantidad FROM LineaPedidos WHERE idPedido = $idPedido;";
+$resultado = $bd->querySelectMuchos($query);
+
+foreach ($resultado as $carta) {
+
+    $cartasPedido = $carta['idCarta'];
+    $cantidadCartasPedido = $carta['cantidad'];
+
+    $query = "UPDATE carta SET cantidad = cantidad - $cantidadCartasPedido WHERE id = $cartasPedido";
+    $bd->queryUpdate($query);
+}
 
 $query = "UPDATE Pedidos SET estado = 'terminado',fecha = NOW() WHERE id = $idPedido;";
 $bd->queryUpdate($query);

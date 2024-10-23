@@ -18,105 +18,140 @@
         $idUsuario = $_SESSION['id'];
     }
 
+
     $bd->conectar();
 
     $query = "SELECT * FROM Carta";
     $listadoCartas = $bd->querySelectMuchos($query);
+
     $bd->desconectar();
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $bd->conectar();
 
-        $query = "SELECT *
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $metodo = $_POST['metodoPost'];
+
+        switch ($metodo) {
+
+            case 'añadirCarro':
+
+                $bd->conectar();
+
+                $query = "SELECT *
                   FROM Pedidos 
                   WHERE idUsuario = $idUsuario AND estado = 'en-proceso';";
-        $resultado = $bd->querySelectUno($query);
+                $resultado = $bd->querySelectUno($query);
 
-        $idCarta = $_POST["idCarta"];
-        $catidad_de_cartas = intval($_POST['cantidad-' . $idCarta]);
+                $idCarta = $_POST["idCarta"];
+                $catidad_de_cartas = intval($_POST['cantidad-' . $idCarta]);
 
-        $query = "SELECT * FROM Carta WHERE id = $idCarta LIMIT 1";
-        $cartaSeleccionada = $bd->querySelectUno($query);
+                $query = "SELECT * FROM Carta WHERE id = $idCarta LIMIT 1";
+                $cartaSeleccionada = $bd->querySelectUno($query);
 
-        $precioTotalLinea = (float) $cartaSeleccionada["precioCarta"] * $catidad_de_cartas;
+                $precioTotalLinea = (float) $cartaSeleccionada["precioCarta"] * $catidad_de_cartas;
 
-        $bd->desconectar();
+                $bd->desconectar();
 
-        if ($resultado["estado"] !== "en-proceso") {
-            try {
-                $bd->conectar();
+                if ($resultado["estado"] !== "en-proceso") {
+                    try {
+                        $bd->conectar();
 
-                $query = "SELECT direccion  FROM usuario WHERE id = $idUsuario";
-                $direccionSelect = $bd->querySelectUno($query);
-                $direccionEnvio = $direccionSelect["direccion"];
+                        $query = "SELECT direccion  FROM usuario WHERE id = $idUsuario";
+                        $direccionSelect = $bd->querySelectUno($query);
+                        $direccionEnvio = $direccionSelect["direccion"];
 
-                $query = "INSERT INTO Pedidos (fecha, precioTotal, direccionEnvio,idUsuario)
+                        $query = "INSERT INTO Pedidos (fecha, precioTotal, direccionEnvio,idUsuario)
                       VALUES (NULL, NULL, '$direccionEnvio',$idUsuario);";
-                $bd->queryInsert($query);
+                        $bd->queryInsert($query);
 
-                $idPedido = $bd->lastInsertId();
+                        $idPedido = $bd->lastInsertId();
 
-                $_SESSION['idPedido'] = $idPedido;
+                        $_SESSION['idPedido'] = $idPedido;
 
-                $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido,IdCarta)
+                        $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido,IdCarta)
                       VALUES ($catidad_de_cartas, $precioTotalLinea, $idPedido, $idCarta);";
-                $bd->queryInsert($query);
+                        $bd->queryInsert($query);
 
-                $_SESSION['carrito-contador']++;
+                        $_SESSION['carrito-contador']++;
 
-                $idLineaPedido = $bd->lastInsertId();
+                        $idLineaPedido = $bd->lastInsertId();
 
-                $query = "UPDATE Pedidos SET precioTotal = 
+                        $query = "UPDATE Pedidos SET precioTotal = 
                           (SELECT SUM(precioTotalLinea) FROM LineaPedidos WHERE idPedido = $idPedido) 
                           WHERE id = $idPedido;";
-                $bd->queryUpdate($query);
+                        $bd->queryUpdate($query);
 
-            } catch (Exception $e) {
-                echo "Error al insertar: " . $e->getMessage();
-            }
-            $bd->desconectar();
-            header("Location: index.php");
-        } else {
-            try {
-                $bd->conectar();
-
-                $idPedido = $resultado["id"];
-                $_SESSION['idPedido'] = $idPedido;
-
-                $query = "SELECT idCarta FROM LineaPedidos WHERE idCarta = $idCarta LIMIT 1";
-                $exiteCarta = $bd->querySelectUno($query);
-                $precioCartaId = $cartaSeleccionada["precioCarta"];
-
-                if (!$exiteCarta) {
-
-                    $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido,IdCarta)
-                    VALUES ($catidad_de_cartas, $precioTotalLinea, $idPedido, $idCarta);";
-                    $_SESSION['carrito-contador']++;
-                    $bd->queryInsert($query);
-
+                    } catch (Exception $e) {
+                        echo "Error al insertar: " . $e->getMessage();
+                    }
+                    $bd->desconectar();
+                    header("Location: index.php");
                 } else {
+                    try {
+                        $bd->conectar();
 
-                    $query = "UPDATE LineaPedidos SET cantidad = cantidad + $catidad_de_cartas WHERE idCarta = $idCarta;";
-                    $bd->queryUpdate($query);
+                        $idPedido = $resultado["id"];
+                        $_SESSION['idPedido'] = $idPedido;
 
-                    $query = "UPDATE LineaPedidos 
+                        $query = "SELECT idCarta FROM LineaPedidos WHERE idCarta = $idCarta LIMIT 1";
+                        $exiteCarta = $bd->querySelectUno($query);
+                        $precioCartaId = $cartaSeleccionada["precioCarta"];
+
+                        if (!$exiteCarta) {
+
+                            $query = "INSERT INTO LineaPedidos (cantidad, precioTotalLinea, idPedido,IdCarta)
+                                      VALUES ($catidad_de_cartas, $precioTotalLinea, $idPedido, $idCarta);";
+                            $_SESSION['carrito-contador']++;
+                            $bd->queryInsert($query);
+
+                        } else {
+
+                            $query = "UPDATE LineaPedidos SET cantidad = cantidad + $catidad_de_cartas WHERE idCarta = $idCarta;";
+                            $bd->queryUpdate($query);
+
+                            $query = "UPDATE LineaPedidos 
                               SET precioTotalLinea = cantidad *  $precioCartaId
                               WHERE idCarta = $idCarta;";
 
-                    $bd->queryUpdate($query);
-                }
+                            $bd->queryUpdate($query);
+                        }
 
-                $query = "UPDATE Pedidos SET precioTotal = 
+                        $query = "UPDATE Pedidos SET precioTotal = 
                           (SELECT SUM(precioTotalLinea) FROM LineaPedidos WHERE idPedido = $idPedido) 
                           WHERE id = $idPedido;";
-                $bd->queryUpdate($query);
+                        $bd->queryUpdate($query);
 
-            } catch (Exception $e) {
-                echo "Error al insertar: " . $e->getMessage();
-            }
-            $bd->desconectar();
-            header("Location: index.php");
+                    } catch (Exception $e) {
+                        echo "Error al insertar: " . $e->getMessage();
+                    }
+                    $bd->desconectar();
+                    header("Location: index.php");
+                }
+                break;
+            case 'busqueda':
+                $bd->conectar();
+
+                $textoBusqueda = $_POST['textoBusqueda'];
+                
+                $query = "SELECT * FROM Carta 
+                                     WHERE LOWER(nombreCarta) LIKE LOWER('%$textoBusqueda%') OR
+                                     LOWER(tipoCarta) LIKE LOWER('%$textoBusqueda%') OR
+                                     LOWER(costeCarta) LIKE LOWER('%$textoBusqueda%') OR
+                                     LOWER(color) LIKE LOWER('%$textoBusqueda%') OR
+                                     LOWER(codigoCarta) LIKE LOWER('%$textoBusqueda%');";
+
+                $listadoCartas = $bd->querySelectMuchos($query);
+
+                $bd->desconectar();
+
+                break;
+            default:
+                echo "error al recibir el metodo del post";
+                break;
         }
+
+
     }
     ?>
 </head>
@@ -146,6 +181,7 @@
                                 <button type="button" class="btn-mas" data-id="<?php echo $carta['id']; ?>">+</button>
                             </div>
 
+                            <input type="hidden" value="añadirCarro" name="metodoPost">
                             <input type="hidden" name="idCarta" value="<?php echo $carta['id']; ?>">
                             <button type="submit">Añadir a carrito</button>
                         </form>

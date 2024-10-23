@@ -79,6 +79,9 @@ CREATE TABLE
         img VARCHAR(750),
         cantidad INT NOT NULL
     );
+    
+    SELECT * FROM carta;
+    
 -- cambiar url imagen por una url global(de htcdocs a la carpeta images) y en la  bd poner solo nombre imagen
 INSERT INTO Carta(nombreCarta, tipoCarta, costeCarta, color, codigoCarta, precioCarta, img, cantidad) VALUES 
     ("Buu, Unlimited Majin", "Battle Card", "8", "Azul", "BT25-146", 187.00, "buuazul.png", 10),
@@ -216,6 +219,5 @@ JOIN
     LineaPedido_Carta lpc ON lp.id = lpc.idLineaPedido 
 JOIN 
     Carta c ON lpc.idCarta = c.id;
-    SELECT COUNT(*)
-                  FROM Pedidos 
-                  WHERE idUsuario = 2 AND estado LIKE'en-proceso';
+    
+SELECT idCarta,cantidad FROM LineaPedidos WHERE idPedido = 3;

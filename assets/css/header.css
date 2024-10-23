@@ -29,14 +29,18 @@
     margin: 0;
 }
 
-/* Barra de búsqueda */
-#cabezera .search-bar {
-    display: flex;
-    align-items: center;
-    width: 40%;
+/* Estilos del formulario de búsqueda */
+.formBusqueda {
+    width: 40%; /* Cambia el ancho si es necesario */
 }
 
-#cabezera .search-bar input {
+.formBusqueda .search-bar {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+}
+
+.formBusqueda .search-bar input[type="text"] {
     width: 80%;
     padding: 8px;
     border: 1px solid #00bfff;
@@ -44,7 +48,7 @@
     font-size: 14px;
 }
 
-#cabezera .search-bar button {
+.formBusqueda .search-bar button {
     padding: 8px 15px;
     background-color: white;
     color: #007bff;
@@ -55,7 +59,7 @@
     transition: background-color 0.3s ease;
 }
 
-#cabezera .search-bar button:hover {
+.formBusqueda .search-bar button:hover {
     background-color: #0056b3;
     color: white;
 }
@@ -117,8 +121,6 @@
     color: white; /* Mantiene el texto blanco */
 }
 
-
-
 /* Estilos del botón de inicio de sesión */
 .boton-login .botonInicioSesion {
     padding: 10px 20px;
@@ -162,4 +164,3 @@
     color: white; /* Mantiene el texto blanco */
     border-color: #b02a37; /* Borde coincide con el color de fondo al hacer hover */
 }
-
