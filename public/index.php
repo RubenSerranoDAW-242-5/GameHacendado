@@ -12,7 +12,7 @@
     session_start();
 
     include '../includes/header.php';
-    include '../config/ConexionBD.php';
+    // include '../config/ConexionBD.php';
 
     if (isset($_SESSION["email"])) {
         $idUsuario = $_SESSION['id'];
@@ -134,12 +134,16 @@
 
                 $textoBusqueda = $_POST['textoBusqueda'];
                 
-                $query = "SELECT * FROM Carta 
-                                     WHERE LOWER(nombreCarta) LIKE LOWER('%$textoBusqueda%') OR
-                                     LOWER(tipoCarta) LIKE LOWER('%$textoBusqueda%') OR
-                                     LOWER(costeCarta) LIKE LOWER('%$textoBusqueda%') OR
-                                     LOWER(color) LIKE LOWER('%$textoBusqueda%') OR
-                                     LOWER(codigoCarta) LIKE LOWER('%$textoBusqueda%');";
+                $query = "SELECT DISTINCT c.*
+                          FROM Carta c
+                          JOIN CategoriasCartas cc ON c.id = cc.idCarta
+                          JOIN Categorias cat ON cc.idCategoria = cat.id
+                          WHERE LOWER(c.nombreCarta) LIKE LOWER('%$textoBusqueda%')
+                          OR LOWER(c.tipoCarta) LIKE LOWER('%$textoBusqueda%')
+                          OR LOWER(c.costeCarta) LIKE LOWER('%$textoBusqueda%')
+                          OR LOWER(c.color) LIKE LOWER('%$textoBusqueda%')
+                          OR LOWER(c.codigoCarta) LIKE LOWER('%$textoBusqueda%')
+                          OR LOWER(cat.categoria) LIKE LOWER('%$textoBusqueda%');";
 
                 $listadoCartas = $bd->querySelectMuchos($query);
 
@@ -198,6 +202,7 @@
         </div>
     </div>
 </body>
+
 <?php include '../includes/footer.php'; ?>
 
 </html>

@@ -164,3 +164,23 @@
     color: white; /* Mantiene el texto blanco */
     border-color: #b02a37; /* Borde coincide con el color de fondo al hacer hover */
 }
+.zonaAdmin {
+    padding: 10px 20px;
+    background-color: #ff7b00; /* Color complementario del azul */
+    color: white; /* Texto blanco */
+    border: 1px solid #ff7b00; /* Borde del mismo color */
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0px 2px 5px rgba(255, 123, 0, 0.2); /* Sombra con el mismo tono */
+}
+
+/* Hover para el botón de Zona Admin */
+.zonaAdmin:hover {
+    background-color: #cc6200; /* Color más oscuro de naranja para el hover */
+    border-color: #cc6200; /* El borde coincide con el fondo al hacer hover */
+    color: white; /* Mantiene el texto blanco */
+    box-shadow: 0px 3px 7px rgba(204, 98, 0, 0.3); /* Sombra más intensa */
+}
+

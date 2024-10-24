@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/css/perfil.css">
     <?php
     session_start();
-    include "../config/ConexionBD.php";
+    // include "../config/ConexionBD.php";
     include '../includes/header.php';
 
     if (isset($_SESSION['id'])) {

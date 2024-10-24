@@ -3,24 +3,35 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <?php
 
+include '../config/ConexionBD.php';
+
 $ruta = $_SERVER['REQUEST_URI'];
 $rutaSeparada = explode('/', trim($ruta, '/'));
 
 
 ?>
 <script>
-    function redirigir() {
+    function redirigirIndex() {
 
         const baseUrl = window.location.origin + '/GameHacendado/public/index.php';
+
+        window.location.href = baseUrl;
+    }
+    function redirigirZonaAdmin() {
+
+        const baseUrl = window.location.origin+'/GameHacendado/admin/zonaAdmin.php';
 
         window.location.href = baseUrl;
     }
 </script>
 <header id="cabezera">
     <div class="logo">
-        <img src="../assets/images/logo.webp" onclick="redirigir()">
+        <img src="../assets/images/logo.webp" onclick="redirigirIndex()">
         <h1>GameHacendado</h1>
     </div>
+    <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+        <button class="zonaAdmin" onclick="redirigirZonaAdmin()">Zona Admin</button>
+    <?php endif; ?>
     <?php if (str_contains($rutaSeparada[count($rutaSeparada) - 1], 'carrito.php')): ?>
 
         <?php if (isset($_SESSION['email'])): ?>
@@ -74,4 +85,5 @@ $rutaSeparada = explode('/', trim($ruta, '/'));
         <?php endif; ?>
 
     <?php endif; ?>
+
 </header>

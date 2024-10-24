@@ -10,7 +10,7 @@
     <?php
     session_start();
 
-    include("../config/ConexionBD.php");
+    // include("../config/ConexionBD.php");
     include '../includes/header.php';
 
     $bd->conectar();
@@ -36,23 +36,15 @@
                 $reslutado = $bd->querySelectUno($query);
                 $bd->desconectar();
                 if ($reslutado) {
-                    $_SESSION['carrito-contador'] = (int)$reslutado['numero_lineas_pedido'];
+                    $_SESSION['carrito-contador'] = (int) $reslutado['numero_lineas_pedido'];
                 } else {
                     $_SESSION['carrito-contador'] = 0;
                 }
 
+                header("Location: ../public/index.php");
+                $bd->desconectar();
+                exit;
 
-                if ($resultado['rol'] == "admin") {
-                    header("Location: ../admin/index.php?id= " . $_SESSION['id'] . "&&email=" . $_SESSION['email'] .
-                        "&&rol=" . $_SESSION['rol']);
-                    $bd->desconectar();
-                    exit;
-                } else {
-                    header("Location: ../public/index.php?id= " . $_SESSION['id'] . "&&email=" . $_SESSION['email'] .
-                        "&&rol=" . $_SESSION['rol']);
-                    $bd->desconectar();
-                    exit;
-                }
             } else if ($resultado['contraseña'] != $contra || $resultado['email'] != $usuario) {
                 $errorMessage = "Usuario o Contraseña son incorrectos";
             }

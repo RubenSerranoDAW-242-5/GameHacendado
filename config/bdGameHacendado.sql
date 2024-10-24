@@ -1,3 +1,5 @@
+CREATE SCHEMA `bd_gamehacendado` ;
+USE `bd_gamehacendado`;
 DROP TABLE IF EXISTS Usuario;
 
 CREATE TABLE

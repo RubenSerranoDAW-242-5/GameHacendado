@@ -10,7 +10,7 @@
     <script src="../assets/js/loadout.js" defer></script>
     <?php
 
-    include("../config/ConexionBD.php");
+    // include("../config/ConexionBD.php");
     include "../includes/header.php";
 
 
