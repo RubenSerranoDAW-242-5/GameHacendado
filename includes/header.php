@@ -19,7 +19,7 @@ $rutaSeparada = explode('/', trim($ruta, '/'));
     }
     function redirigirZonaAdmin() {
 
-        const baseUrl = window.location.origin+'/GameHacendado/admin/zonaAdmin.php';
+        const baseUrl = window.location.origin + '/GameHacendado/admin/zonaAdmin.php';
 
         window.location.href = baseUrl;
     }
@@ -83,6 +83,21 @@ $rutaSeparada = explode('/', trim($ruta, '/'));
                 <button class="cerrarSesion" onclick="window.location.href='logout.php'">Cerrar Sesión</button>
             </div>
         <?php endif; ?>
+
+    <?php elseif (str_contains($rutaSeparada[count($rutaSeparada) - 1], 'zonaCartas.php')): ?>
+
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="formBusqueda">
+            <div class="search-bar">
+                <input type="hidden" value="busqueda" name="metodoPost">
+                <input type="text" placeholder="Buscar productos..." name="textoBusqueda">
+                <button type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <div class="boton-añadir">
+            <button class="añadir-carta" onclick="window.location.href='crearCarta.php'">Añadir Nueva Carta</button>
+        </div>
+
 
     <?php endif; ?>
 

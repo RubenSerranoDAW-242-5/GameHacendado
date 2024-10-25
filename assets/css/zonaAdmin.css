@@ -1,47 +1,45 @@
 /* Estilos generales para la página */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f8f9fa;
+    background-color: #f4f4f9;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    box-sizing: border-box;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupa toda la altura del viewport */
 }
-
 /* Contenedor principal */
 .contenedor {
-    width: 100%;
-    max-width: 1200px;
+    flex: 1; /* Ocupa el espacio restante entre header y footer */
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     gap: 20px; /* Espacio entre los botones */
-    height: 80%; /* Ocupa el 80% de la altura del viewport */
 }
 
 /* Botones generales */
 button {
     font-family: 'Poppins', sans-serif;
-    font-size: 2rem; /* Tamaño más grande del texto */
-    padding: 30px 50px; /* Más relleno para ocupar más espacio */
+    font-size: 2rem;
+    padding: 30px 50px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    flex: 1; /* Los botones ocupan todo el ancho disponible */
+    flex: 1;
     text-align: center;
-    height: 100%; /* Los botones ocuparán toda la altura del contenedor */
+    width: 100%;
+    height: 100%;
 }
 
 button:hover {
     transform: translateY(-3px);
 }
 
-/* Botón de Usuario */
 .btn-usuario {
     background-color: #007bff;
     color: white;
@@ -51,7 +49,6 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Botón de Cartas */
 .btn-cartas {
     background-color: #28a745;
     color: white;
@@ -61,17 +58,4 @@ button:hover {
     background-color: #218838;
 }
 
-/* Encabezado y pie de página */
-header, footer {
-    background-color: #343a40;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    font-size: 1rem;
-}
 
-footer {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}

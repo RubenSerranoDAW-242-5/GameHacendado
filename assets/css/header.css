@@ -5,14 +5,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #007bff; /* Color de fondo del header */
+    background-color: #007bff;
+    /* Color de fondo del header */
     padding: 10px 20px;
     color: white;
     box-shadow: 0px 2px 10px rgba(0, 123, 255, 0.2);
 }
 
 #cabezera .logo {
-    align-items: center; 
+    align-items: center;
     display: flex;
     flex-direction: row;
 }
@@ -31,13 +32,15 @@
 
 /* Estilos del formulario de búsqueda */
 .formBusqueda {
-    width: 40%; /* Cambia el ancho si es necesario */
+    width: 40%;
+    /* Cambia el ancho si es necesario */
 }
 
 .formBusqueda .search-bar {
     display: flex;
     align-items: center;
-    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    width: 100%;
+    /* Asegura que ocupe todo el ancho disponible */
 }
 
 .formBusqueda .search-bar input[type="text"] {
@@ -106,9 +109,12 @@
 
 .boton-login .botonRegistro {
     padding: 10px 20px;
-    background-color: #0056b3; /* Color de fondo oscuro */
-    color: white; /* Texto blanco */
-    border: 1px solid #0056b3; /* Borde del mismo color oscuro */
+    background-color: #0056b3;
+    /* Color de fondo oscuro */
+    color: white;
+    /* Texto blanco */
+    border: 1px solid #0056b3;
+    /* Borde del mismo color oscuro */
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
@@ -117,16 +123,21 @@
 
 /* Cambiar el color de fondo y del texto en hover */
 .boton-login .botonRegistro:hover {
-    background-color: #003f7f; /* Color de fondo aún más oscuro al hacer hover */
-    color: white; /* Mantiene el texto blanco */
+    background-color: #003f7f;
+    /* Color de fondo aún más oscuro al hacer hover */
+    color: white;
+    /* Mantiene el texto blanco */
 }
 
 /* Estilos del botón de inicio de sesión */
 .boton-login .botonInicioSesion {
     padding: 10px 20px;
-    background-color: white; /* Fondo blanco */
-    color: #007bff; /* Texto azul */
-    border: 1px solid #00bfff; /* Borde del mismo azul */
+    background-color: white;
+    /* Fondo blanco */
+    color: #007bff;
+    /* Texto azul */
+    border: 1px solid #00bfff;
+    /* Borde del mismo azul */
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
@@ -135,9 +146,12 @@
 
 /* Estilo cuando se pasa el ratón sobre el botón */
 .boton-login .botonInicioSesion:hover {
-    background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón */
-    color: white; /* Cambia el color del texto al pasar el ratón */
-    border-color: #0056b3; /* Borde coincide con el color de fondo al hacer hover */
+    background-color: #0056b3;
+    /* Cambia el color de fondo al pasar el ratón */
+    color: white;
+    /* Cambia el color del texto al pasar el ratón */
+    border-color: #0056b3;
+    /* Borde coincide con el color de fondo al hacer hover */
 }
 
 /* Añadir al header */
@@ -148,9 +162,12 @@
 /* Estilos del botón de cerrar sesión */
 .icons .cerrarSesion {
     padding: 10px 20px;
-    background-color: #dc3545; /* Color de fondo rojo */
-    color: white; /* Texto blanco */
-    border: 1px solid #dc3545; /* Borde rojo */
+    background-color: #dc3545;
+    /* Color de fondo rojo */
+    color: white;
+    /* Texto blanco */
+    border: 1px solid #dc3545;
+    /* Borde rojo */
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
@@ -160,27 +177,58 @@
 
 /* Estilo cuando se pasa el ratón sobre el botón de cerrar sesión */
 .icons .cerrarSesion:hover {
-    background-color: #b02a37; /* Color de fondo rojo más oscuro al pasar el ratón */
-    color: white; /* Mantiene el texto blanco */
-    border-color: #b02a37; /* Borde coincide con el color de fondo al hacer hover */
+    background-color: #b02a37;
+    /* Color de fondo rojo más oscuro al pasar el ratón */
+    color: white;
+    /* Mantiene el texto blanco */
+    border-color: #b02a37;
+    /* Borde coincide con el color de fondo al hacer hover */
 }
+
 .zonaAdmin {
     padding: 10px 20px;
-    background-color: #ff7b00; /* Color complementario del azul */
-    color: white; /* Texto blanco */
-    border: 1px solid #ff7b00; /* Borde del mismo color */
+    background-color: #ff7b00;
+    /* Color complementario del azul */
+    color: white;
+    /* Texto blanco */
+    border: 1px solid #ff7b00;
+    /* Borde del mismo color */
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    box-shadow: 0px 2px 5px rgba(255, 123, 0, 0.2); /* Sombra con el mismo tono */
+    box-shadow: 0px 2px 5px rgba(255, 123, 0, 0.2);
+    /* Sombra con el mismo tono */
 }
 
 /* Hover para el botón de Zona Admin */
 .zonaAdmin:hover {
-    background-color: #cc6200; /* Color más oscuro de naranja para el hover */
-    border-color: #cc6200; /* El borde coincide con el fondo al hacer hover */
-    color: white; /* Mantiene el texto blanco */
-    box-shadow: 0px 3px 7px rgba(204, 98, 0, 0.3); /* Sombra más intensa */
+    background-color: #cc6200;
+    /* Color más oscuro de naranja para el hover */
+    border-color: #cc6200;
+    /* El borde coincide con el fondo al hacer hover */
+    color: white;
+    /* Mantiene el texto blanco */
+    box-shadow: 0px 3px 7px rgba(204, 98, 0, 0.3);
+    /* Sombra más intensa */
 }
 
+.añadir-carta {
+    padding: 10px 20px;
+    background-color: #6f42c1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 3px 8px rgba(111, 66, 193, 0.3);
+    flex: 0.6;
+}
+
+
+.añadir-carta:hover {
+    background-color: #5a3799; 
+    border-color: #5a3799;
+    box-shadow: 0px 4px 12px rgba(90, 55, 153, 0.4);
+}
