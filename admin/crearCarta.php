@@ -6,50 +6,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Carta y Categoría</title>
     <link rel="stylesheet" href="../assets/css/crearCarta.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <?php include '../includes/header.php'; ?>
+    <script>
+        function mostrarNombreArchivo() {
+            const inputFile = document.getElementById('img');
+            const nombreArchivo = document.getElementById('nombre-archivo');
+            if (inputFile.files.length > 0) {
+                nombreArchivo.textContent = `Archivo seleccionado: ${inputFile.files[0].name}`;
+            } else {
+                nombreArchivo.textContent = '';
+            }
+        }
+
+        $(document).ready(function() {
+            $('#categorias').select2({
+                placeholder: "Selecciona una o más categorías",
+                width: '100%',
+                tags: true
+            });
+        });
+    </script>
+
+    <?php
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $metodo = $_POST['metodo'];
+
+        switch ($metodo) {
+            case "crear-carta":
+
+                $bd->conectar();
+
+                $nombreCarta = $_POST['nombreCarta'];
+                $tipoCarta = $_POST['tipoCarta'];
+                $costeCarta = $_POST['costeCarta'];
+                $codigoCarta = $_POST['codigoCarta'];
+                $colorCarta = $_POST['color'];
+                $precioCarta = $_POST['precioCarta'];
+                $imagenNombre = $_FILES['img']['name'];
+                $categoriasSeleccionadas = isset($_POST['categorias']) ? $_POST['categorias'] : [];
+                $cantidadCartas = $_POST['cantidad'];
+
+                $query = "INSERT INTO Carta(nombreCarta, tipoCarta, costeCarta, color, codigoCarta, precioCarta, img, cantidad) VALUES 
+                                ('$nombreCarta','$tipoCarta','$costeCarta','$colorCarta','$codigoCarta',$precioCarta,'$imagenNombre',$cantidadCartas);";
+
+                $bd->queryInsert($query);
+
+                $idCarta = $bd->lastInsertId();
+                $imagenArchivo = $_FILES['img']['tmp_name'];
+                move_uploaded_file($imagenArchivo, "../assets/images/" . $imagenNombre);
+
+                foreach ($categoriasSeleccionadas as $id) {
+                    $query = "INSERT INTO CategoriasCartas(idCarta,idCategoria) VALUES 
+                ($idCarta,$id);";
+
+                    $bd->queryInsert($query);
+                }
+                $bd->desconectar();
+                
+                header("Location: ../admin/zonaCartas.php");
+                exit;
+
+            case "crear-categoria":
+
+                $bd->conectar();
+
+                $categoria = $_POST['categoria'];
+
+                $query = "INSERT INTO Categorias(categoria) VALUES ('$categoria')";
+                $bd->queryInsert($query);
+
+                $bd->desconectar();
+
+                break;
+        }
+    }
+
+    ?>
+
 </head>
 
 <body>
+    <h2>Crear Carta</h2>
     <div class="form-container">
-        <h2>Crear Carta</h2>
-        <form id="crear-carta-form">
-            <label for="nombreCarta">Nombre de la Carta:</label>
-            <input type="text" id="nombreCarta" name="nombreCarta" required>
 
-            <label for="tipoCarta">Tipo de Carta:</label>
-            <input type="text" id="tipoCarta" name="tipoCarta" required>
+        <div class="form-section-cartas">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
+                <label for="nombreCarta">Nombre de la Carta:</label>
+                <input type="text" id="nombreCarta" name="nombreCarta" required>
 
-            <label for="costeCarta">Coste de Carta:</label>
-            <input type="text" id="costeCarta" name="costeCarta">
+                <label for="tipoCarta">Tipo de Carta:</label>
+                <input type="text" id="tipoCarta" name="tipoCarta" required>
 
-            <label for="color">Color:</label>
-            <input type="text" id="color" name="color" required>
+                <label for="costeCarta">Coste de Carta:</label>
+                <input type="text" id="costeCarta" name="costeCarta">
 
-            <label for="codigoCarta">Código de Carta:</label>
-            <input type="text" id="codigoCarta" name="codigoCarta" required>
+                <label for="color">Color:</label>
+                <input type="text" id="color" name="color" required>
 
-            <label for="precioCarta">Precio:</label>
-            <input type="number" id="precioCarta" name="precioCarta" step="0.01" required>
+                <label for="codigoCarta">Código de Carta:</label>
+                <input type="text" id="codigoCarta" name="codigoCarta" required>
 
-            <label for="img">Imagen URL:</label>
-            <input type="url" id="img" name="img">
 
-            <label for="cantidad">Cantidad:</label>
-            <input type="number" id="cantidad" name="cantidad" min="1" required>
 
-            <button type="submit" class="añadir-carta">Crear Carta</button>
-        </form>
-    </div>
+                <label for="precioCarta">Precio:</label>
+                <input type="number" id="precioCarta" name="precioCarta" step="0.01" required>
 
-    <div class="form-container">
-        <h2>Crear Categoría</h2>
-        <form id="crear-categoria-form">
-            <label for="categoria">Nombre de la Categoría:</label>
-            <input type="text" id="categoria" name="categoria" required>
+                <div class="file-upload-container">
+                    <label for="img" class="custom-file-upload">Seleccionar imagen</label>
+                    <input type="file" id="img" name="img" onchange="mostrarNombreArchivo()">
+                    <span id="nombre-archivo"></span>
+                </div>
+                <?php
+                $bd->conectar();
 
-            <button type="submit" class="añadir-carta">Crear Categoría</button>
-        </form>
+                $query = "SELECT * FROM Categorias;";
+                $resultado = $bd->querySelectMuchos($query);
+
+                $bd->desconectar();
+                ?>
+                <label for="categorias">Categorías:</label>
+                <select id="categorias" name="categorias[]" multiple>
+                    <?php foreach ($resultado as $categoria): ?>
+                        <option value="<?php echo $categoria['id']; ?>"><?php echo $categoria['categoria']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" min="1" required>
+
+
+                <input type="hidden" name="metodo" value="crear-carta">
+                <button type="submit" class="añadir-carta">Crear Carta</button>
+            </form>
+        </div>
+
+        <div class="form-section-categoria">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                <label for="categoria">Nombre Categoria:</label>
+                <input type="text" id="categoria" name="categoria" required>
+                <input type="hidden" name="metodo" value="crear-categoria">
+                <button type="submit" class="añadir-categoria">Crear Categoria</button>
+            </form>
+        </div>
     </div>
 
 </body>
+<?php include '../includes/footer.php'; ?>
 
 </html>

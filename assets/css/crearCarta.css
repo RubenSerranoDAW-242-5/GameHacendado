@@ -1,29 +1,77 @@
+/* Estilos generales */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #f4f4f4;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
+
+}
+
+/* Título del formulario */
+h2 {
+
+    text-align: center;
+    color: #007bff;
+    /* Azul */
 }
 
 .form-container {
-    background-color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* Espacio entre columnas */
+    margin: 20px;
+    padding: 35px;
+    background-color: #f4f4f4;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
 }
 
-h2 {
-    color: #007bff; /* Color azul para los encabezados */
+.form-section-cartas,
+.form-section-categoria {
+    flex: 1 1 50%;
+    /* Cada sección ocupa el 50% del ancho disponible */
+    display: flex;
+    flex-direction: column;
 }
 
+
+
+/* Asegúrate de que los botones tengan el mismo estilo */
+.añadir-carta,
+.añadir-categoria {
+    width: 100%;
+    /* Botones de ancho completo */
+    padding: 10px;
+    /* Espaciado interno */
+    background-color: #6f42c1;
+    /* Color morado */
+    color: white;
+    /* Color del texto */
+    border: none;
+    /* Sin borde */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cambia el cursor al pasar el mouse */
+    transition: background-color 0.3s ease;
+    /* Transición suave */
+}
+
+.añadir-carta:hover,
+.añadir-categoria:hover {
+    background-color: #563d7c;
+    /* Morado más oscuro en hover */
+}
+
+
+/* Estilo de etiquetas y campos de entrada */
 label {
-    display: block;
-    margin-bottom: 5px;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
 input[type="text"],
-input[type="url"],
 input[type="number"] {
     width: 100%;
     padding: 10px;
@@ -32,20 +80,94 @@ input[type="number"] {
     border-radius: 5px;
 }
 
-.añadir-carta {
+/* Estilos del input de archivo */
+input[type="file"] {
+    display: none;
+}
+
+.file-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.custom-file-upload {
     padding: 10px 20px;
-    background-color: #6f42c1; /* Color morado */
+    background-color: #6f42c1;
     color: white;
-    border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0px 3px 8px rgba(111, 66, 193, 0.3);
-    width: 100%; /* Botón de ancho completo */
 }
 
-.añadir-carta:hover {
-    background-color: #563d7c; /* Morado más oscuro en hover */
+.custom-file-upload:hover {
+    background-color: #563d7c;
     box-shadow: 0px 4px 12px rgba(86, 61, 124, 0.4);
+}
+
+#nombre-archivo {
+    font-size: 14px;
+    color: #6f42c1;
+    font-weight: bold;
+    padding: 5px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Estilos para el select de categorías */
+#categorias {
+    width: 90%;
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f4f4f4;
+}
+
+/* Estilos para select2 en modo múltiple */
+.select2-container--default .select2-selection--multiple {
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    min-height: 40px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #333;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #6f42c1;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    margin: 3px 5px 3px 0;
+    border-radius: 3px;
+    box-shadow: 0px 3px 6px rgba(111, 66, 193, 0.3);
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice:hover {
+    background-color: #563d7c;
+    color: #ddd;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: white;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.select2-container--default .select2-selection--multiple .select2-search--inline .select2-search__field {
+    color: #666;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__placeholder {
+    color: #aaa;
+    font-weight: normal;
 }

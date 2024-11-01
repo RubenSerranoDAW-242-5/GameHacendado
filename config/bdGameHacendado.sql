@@ -1,5 +1,3 @@
-CREATE SCHEMA `bd_gamehacendado` ;
-USE `bd_gamehacendado`;
 DROP TABLE IF EXISTS Usuario;
 
 CREATE TABLE
@@ -26,6 +24,9 @@ VALUES
     ('Miguel', 'Torres', 'miguel.torres@example.com', '56789012E', 'miguel123', 'usuario', 'Paseo de la Castellana 654, Madrid', '+34 600 432 109'),
     ('Laura', 'López', 'laura.lopez@example.com', '09876543F', 'lauraSecure', 'usuario', 'Gran Vía 321, Málaga', '+34 600 543 210'),
     ('David', 'Martínez', 'david.martinez@example.com', '67890123G', 'davidPass!', 'admin', 'Calle Luna 101, Zaragoza', '+34 600 654 321');
+    
+    SELECT * FROM Usuario;
+
 
 DROP TABLE IF EXISTS Pedidos;
 
@@ -65,7 +66,7 @@ VALUES
     (2, 374.00, 1, 1),
      (1, 159.00, 1, 2);
      
-SELECT * FROM LineaPedidos;
+SELECT * from lineapedidos;
 
 DROP TABLE IF EXISTS Carta;
 
@@ -81,9 +82,6 @@ CREATE TABLE
         img VARCHAR(750),
         cantidad INT NOT NULL
     );
-    
-    SELECT * FROM carta;
-    
 -- cambiar url imagen por una url global(de htcdocs a la carpeta images) y en la  bd poner solo nombre imagen
 INSERT INTO Carta(nombreCarta, tipoCarta, costeCarta, color, codigoCarta, precioCarta, img, cantidad) VALUES 
     ("Buu, Unlimited Majin", "Battle Card", "8", "Azul", "BT25-146", 187.00, "buuazul.png", 10),
@@ -122,6 +120,9 @@ INSERT INTO Carta(nombreCarta, tipoCarta, costeCarta, color, codigoCarta, precio
 
 SELECT * FROM Carta;
 
+DELETE FROM carta WHERE id = 34;
+
+
 DROP TABLE IF EXISTS Categorias;
 
 CREATE TABLE
@@ -148,6 +149,12 @@ INSERT INTO Categorias(categoria) VALUES
             ("Activate"),
             ("Permanent");
 
+SELECT * from categorias order by id;
+
+INSERT INTO Categorias(categoria) VALUES ('Red Ribbon Army');
+
+DELETE FROM Categorias WHERE id = 17;
+
 -- Tabla de categoria mucho a muchos 
 DROP TABLE IF EXISTS CategoriasCartas;
 
@@ -159,6 +166,8 @@ CREATE TABLE
         idCategoria BIGINT NOT NULL,
         FOREIGN KEY (idCategoria) REFERENCES Categorias (id)
     );
+    DELETE FROM CategoriasCartas WHERE idCarta = 34;
+    
   INSERT INTO CategoriasCartas(idCarta,idCategoria) VALUES 
             -- Categoria 1(Saiyan)
             (3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(10,1),(13,1),(15,1),(16,1),(17,1),(20,1),(22,1),(27,1),(28,1),(29,1),(30,1),(31,1),(32,1),(33,1),
@@ -221,5 +230,3 @@ JOIN
     LineaPedido_Carta lpc ON lp.id = lpc.idLineaPedido 
 JOIN 
     Carta c ON lpc.idCarta = c.id;
-    
-SELECT idCarta,cantidad FROM LineaPedidos WHERE idPedido = 3;

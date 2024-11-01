@@ -7,20 +7,26 @@
     <title>Perfil de Usuario</title>
     <link rel="stylesheet" href="../assets/css/perfil.css">
     <?php
+    
     session_start();
-    // include "../config/ConexionBD.php";
+
     include '../includes/header.php';
 
     if (isset($_SESSION['id'])) {
+
         $idUsuario = $_SESSION['id'];
+
         $bd->conectar();
+
         $query = "SELECT * FROM Usuario WHERE id = $idUsuario";
         $Usuario = $bd->querySelectUno($query);
+
         $bd->desconectar();
     }
 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
         $nombreCambiar = $_POST["nombre"];
         $apellidoCambiar = $_POST['apellido'];
         $emailCambiar = $_POST['email'];
@@ -28,7 +34,9 @@
         $contraCambiar = $_POST['contra'];
         $direccionCambiar = $_POST['direccion'];
         $telefonoCambiar = $_POST['telefono'];
+
         $bd->conectar();
+
         $query = "UPDATE Usuario 
                   SET nombre = '$nombreCambiar', 
                   apellido = '$apellidoCambiar', 
@@ -39,8 +47,11 @@
                   telefono = '$telefonoCambiar'
                   WHERE id = $idUsuario;";
         $bd->queryUpdate($query);
+
         $bd->desconectar();
+
         header("Location:perfil.php");
+
         exit();
     }
     ?>

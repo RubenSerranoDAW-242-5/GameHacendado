@@ -19,7 +19,7 @@ class conexionBD
         $resultado = $this->conBd->query($query);
         if ($resultado->num_rows > 0) {
             return $resultado->fetch_assoc();
-        }else{
+        } else {
             return false;
         }
     }
@@ -28,7 +28,7 @@ class conexionBD
         $resultado = $this->conBd->query($query);
         if ($resultado->num_rows > 0) {
             return $resultado->fetch_all(MYSQLI_ASSOC);
-        }else{
+        } else {
             return false;
         }
     }
@@ -53,7 +53,8 @@ class conexionBD
         } else
             return false;
     }
-    function lastInsertId() {
+    function lastInsertId()
+    {
         return $this->conBd->insert_id;
     }
 }

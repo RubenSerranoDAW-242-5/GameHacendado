@@ -35,29 +35,22 @@
 
             case 'añadirExistencia':
 
+                $bd->conectar();
+
+                $idCarta = $_POST['idCarta'];
+                $cantidadAñadir = $_POST["cantidad-$idCarta-añadir"];
                 
+
+                $query = "UPDATE carta SET cantidad = cantidad + $cantidadAñadir WHERE id = $idCarta";
+
+                $resultado = $bd->queryUpdate($query);
+
+                header("Location: ../admin/zonaCartas.php");
                 
                 break;
             case 'busqueda':
 
-                $bd->conectar();
-
-                $textoBusqueda = $_POST['textoBusqueda'];
-                
-                $query = "SELECT DISTINCT c.*
-                          FROM Carta c
-                          JOIN CategoriasCartas cc ON c.id = cc.idCarta
-                          JOIN Categorias cat ON cc.idCategoria = cat.id
-                          WHERE LOWER(c.nombreCarta) LIKE LOWER('%$textoBusqueda%')
-                          OR LOWER(c.tipoCarta) LIKE LOWER('%$textoBusqueda%')
-                          OR LOWER(c.costeCarta) LIKE LOWER('%$textoBusqueda%')
-                          OR LOWER(c.color) LIKE LOWER('%$textoBusqueda%')
-                          OR LOWER(c.codigoCarta) LIKE LOWER('%$textoBusqueda%')
-                          OR LOWER(cat.categoria) LIKE LOWER('%$textoBusqueda%');";
-
-                $listadoCartas = $bd->querySelectMuchos($query);
-
-                $bd->desconectar();
+                include "../includes/busqueda.php";
 
                 break;
             default:
@@ -85,7 +78,7 @@
                     <p>Color: <?php echo htmlspecialchars($carta['color']); ?></p>
                     <p>Código: <?php echo htmlspecialchars($carta['codigoCarta']); ?></p>
                     <p id="precioCarta">Precio: <?php echo number_format($carta['precioCarta'], 2); ?>€</p>
-                    <p id="cantidad-carta">Precio: <?php echo number_format($carta['cantidad'], 2); ?>€</p>
+                    <p id="cantidad-carta">Cantidad: <?php echo $carta['cantidad']; ?>€</p>
 
                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 
