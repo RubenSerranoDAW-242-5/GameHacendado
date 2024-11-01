@@ -39,14 +39,14 @@
 
                 $idCarta = $_POST['idCarta'];
                 $cantidadAñadir = $_POST["cantidad-$idCarta-añadir"];
-                
+
 
                 $query = "UPDATE carta SET cantidad = cantidad + $cantidadAñadir WHERE id = $idCarta";
 
                 $resultado = $bd->queryUpdate($query);
 
                 header("Location: ../admin/zonaCartas.php");
-                
+
                 break;
             case 'busqueda':
 
@@ -57,8 +57,6 @@
                 echo "error al recibir el metodo del post";
                 break;
         }
-
-
     }
     ?>
 </head>
@@ -69,6 +67,7 @@
 
         <div id="grid">
             <?php foreach ($listadoCartas as $carta): ?>
+
                 <div class="carta" hr>
                     <img src="<?php echo "../assets/images/" . $carta['img']; ?>" alt="<?php echo $carta['nombreCarta']; ?>"
                         class="carta-img">
@@ -78,7 +77,9 @@
                     <p>Color: <?php echo htmlspecialchars($carta['color']); ?></p>
                     <p>Código: <?php echo htmlspecialchars($carta['codigoCarta']); ?></p>
                     <p id="precioCarta">Precio: <?php echo number_format($carta['precioCarta'], 2); ?>€</p>
-                    <p id="cantidad-carta">Cantidad: <?php echo $carta['cantidad']; ?>€</p>
+                    <p id="cantidad-carta">Cantidad: <?php echo $carta['cantidad']; ?></p>
+
+                    <a href="../admin/zonaEditarCarta.php?edit=<?php echo $carta['id']; ?>" class="boton-editar">Editar Carta</a>
 
                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 
@@ -95,6 +96,7 @@
                     </form>
                     <br>
                 </div>
+
             <?php endforeach; ?>
 
 

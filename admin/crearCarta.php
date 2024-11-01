@@ -7,29 +7,10 @@
     <title>Crear Carta y Categoría</title>
     <link rel="stylesheet" href="../assets/css/crearCarta.css">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <?php include '../includes/header.php'; ?>
-    <script>
-        function mostrarNombreArchivo() {
-            const inputFile = document.getElementById('img');
-            const nombreArchivo = document.getElementById('nombre-archivo');
-            if (inputFile.files.length > 0) {
-                nombreArchivo.textContent = `Archivo seleccionado: ${inputFile.files[0].name}`;
-            } else {
-                nombreArchivo.textContent = '';
-            }
-        }
 
-        $(document).ready(function() {
-            $('#categorias').select2({
-                placeholder: "Selecciona una o más categorías",
-                width: '100%',
-                tags: true
-            });
-        });
-    </script>
+
+    <?php include '../includes/header.php'; ?>
+
 
     <?php
 
@@ -40,36 +21,8 @@
         switch ($metodo) {
             case "crear-carta":
 
-                $bd->conectar();
+                include "../includes/creacionCarta.php";
 
-                $nombreCarta = $_POST['nombreCarta'];
-                $tipoCarta = $_POST['tipoCarta'];
-                $costeCarta = $_POST['costeCarta'];
-                $codigoCarta = $_POST['codigoCarta'];
-                $colorCarta = $_POST['color'];
-                $precioCarta = $_POST['precioCarta'];
-                $imagenNombre = $_FILES['img']['name'];
-                $categoriasSeleccionadas = isset($_POST['categorias']) ? $_POST['categorias'] : [];
-                $cantidadCartas = $_POST['cantidad'];
-
-                $query = "INSERT INTO Carta(nombreCarta, tipoCarta, costeCarta, color, codigoCarta, precioCarta, img, cantidad) VALUES 
-                                ('$nombreCarta','$tipoCarta','$costeCarta','$colorCarta','$codigoCarta',$precioCarta,'$imagenNombre',$cantidadCartas);";
-
-                $bd->queryInsert($query);
-
-                $idCarta = $bd->lastInsertId();
-                $imagenArchivo = $_FILES['img']['tmp_name'];
-                move_uploaded_file($imagenArchivo, "../assets/images/" . $imagenNombre);
-
-                foreach ($categoriasSeleccionadas as $id) {
-                    $query = "INSERT INTO CategoriasCartas(idCarta,idCategoria) VALUES 
-                ($idCarta,$id);";
-
-                    $bd->queryInsert($query);
-                }
-                $bd->desconectar();
-                
-                header("Location: ../admin/zonaCartas.php");
                 exit;
 
             case "crear-categoria":
@@ -96,6 +49,7 @@
     <div class="form-container">
 
         <div class="form-section-cartas">
+
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
                 <label for="nombreCarta">Nombre de la Carta:</label>
                 <input type="text" id="nombreCarta" name="nombreCarta" required>
@@ -122,6 +76,7 @@
                     <input type="file" id="img" name="img" onchange="mostrarNombreArchivo()">
                     <span id="nombre-archivo"></span>
                 </div>
+
                 <?php
                 $bd->conectar();
 
@@ -130,6 +85,7 @@
 
                 $bd->desconectar();
                 ?>
+
                 <label for="categorias">Categorías:</label>
                 <select id="categorias" name="categorias[]" multiple>
                     <?php foreach ($resultado as $categoria): ?>
@@ -157,6 +113,31 @@
     </div>
 
 </body>
+
+<script>
+    function mostrarNombreArchivo() {
+        const inputFile = document.getElementById('img');
+        const nombreArchivo = document.getElementById('nombre-archivo');
+        if (inputFile.files.length > 0) {
+            nombreArchivo.textContent = `Archivo seleccionado: ${inputFile.files[0].name}`;
+        } else {
+            nombreArchivo.textContent = '';
+        }
+    }
+
+    $(document).ready(function() {
+        $('#categorias').select2({
+            placeholder: "Selecciona una o más categorías",
+            width: '100%',
+            tags: true
+        });
+    });
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 <?php include '../includes/footer.php'; ?>
 
 </html>

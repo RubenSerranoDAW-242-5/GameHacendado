@@ -21,7 +21,7 @@ h2 {
     gap: 20px;
     /* Espacio entre columnas */
     margin: 20px;
-    padding: 35px;
+    padding: 30px;
     background-color: #f4f4f4;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -144,7 +144,7 @@ input[type="file"] {
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     background-color: #6f42c1;
     border: none;
-    color: white;
+    color: #000000;
     font-weight: bold;
     padding: 5px 10px;
     margin: 3px 5px 3px 0;

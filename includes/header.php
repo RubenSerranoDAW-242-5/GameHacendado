@@ -48,13 +48,16 @@ $rutaSeparada = explode('/', trim($ruta, '/'));
     // });
 </script>
 <header id="cabezera">
+
     <div class="logo">
         <img src="../assets/images/logo.webp" onclick="redirigirIndex()">
         <h1>GameHacendado</h1>
     </div>
+
     <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
         <button class="zonaAdmin" onclick="redirigirZonaAdmin()">Zona Admin</button>
     <?php endif; ?>
+
     <?php if (str_contains($rutaSeparada[count($rutaSeparada) - 1], 'carrito.php')): ?>
 
         <?php if (isset($_SESSION['email'])): ?>

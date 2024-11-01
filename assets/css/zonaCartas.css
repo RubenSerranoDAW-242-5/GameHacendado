@@ -172,3 +172,33 @@ body {
     box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.4);
     /* Sombra al pasar el ratón */
 }
+
+.boton-editar {
+    display: inline-block;
+    /* Para que el enlace se comporte como un botón */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    margin: 5px 0;
+    /* Espaciado externo */
+    background-color: #007bff;
+    /* Color de fondo */
+    color: white;
+    /* Color del texto */
+    border: none;
+    /* Sin borde */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    text-decoration: none;
+    /* Sin subrayado */
+    font-weight: bold;
+    /* Texto en negrita */
+    transition: background-color 0.3s ease;
+    /* Efecto de transición */
+}
+
+boton-editar:hover {
+    background-color: #0056b3;
+    /* Color más oscuro al pasar el ratón */
+    box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.4);
+    /* Sombra al pasar el ratón */
+}

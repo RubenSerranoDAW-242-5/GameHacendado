@@ -120,7 +120,7 @@ INSERT INTO Carta(nombreCarta, tipoCarta, costeCarta, color, codigoCarta, precio
 
 SELECT * FROM Carta;
 
-DELETE FROM carta WHERE id = 34;
+DELETE FROM carta WHERE id = 36;
 
 
 DROP TABLE IF EXISTS Categorias;
@@ -153,7 +153,7 @@ SELECT * from categorias order by id;
 
 INSERT INTO Categorias(categoria) VALUES ('Red Ribbon Army');
 
-DELETE FROM Categorias WHERE id = 17;
+DELETE FROM Categorias WHERE id = 18;
 
 -- Tabla de categoria mucho a muchos 
 DROP TABLE IF EXISTS CategoriasCartas;
@@ -166,7 +166,7 @@ CREATE TABLE
         idCategoria BIGINT NOT NULL,
         FOREIGN KEY (idCategoria) REFERENCES Categorias (id)
     );
-    DELETE FROM CategoriasCartas WHERE idCarta = 34;
+    DELETE FROM CategoriasCartas WHERE idCarta = 36;
     
   INSERT INTO CategoriasCartas(idCarta,idCategoria) VALUES 
             -- Categoria 1(Saiyan)

@@ -1,0 +1,136 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.cartaEditar {
+    max-width: 600px;
+    /* Ancho máximo del formulario */
+    margin: 50px auto;
+    /* Centrado en la página */
+    background-color: white;
+    /* Fondo blanco para el formulario */
+    padding: 20px;
+    /* Espaciado interno */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    /* Sombra para el contenedor */
+    border-radius: 8px;
+    /* Bordes redondeados */
+}
+
+.cartaEditar img {
+    display: block;
+    /* Hacer que la imagen sea un bloque */
+    max-width: 100%;
+    /* Ajustar la imagen al ancho máximo del contenedor */
+    max-height: 400px;
+    /* Establecer una altura máxima (ajusta este valor según tus necesidades) */
+    height: auto;
+    /* Mantener la proporción de la imagen */
+    width: auto;
+    /* Mantener la proporción del ancho */
+    margin: 0 auto 20px;
+    /* Espaciado inferior */
+    border-radius: 8px;
+    /* Bordes redondeados para la imagen */
+    object-fit: cover;
+    /* Ajustar la imagen para cubrir el área disponible */
+}
+
+
+.cartaEditar label {
+    font-weight: bold;
+    /* Negrita para los labels */
+    display: block;
+    /* Cada label ocupa su propia línea */
+    margin: 10px 0 5px;
+    /* Espaciado entre el label y el input */
+}
+
+.cartaEditar input[type="text"],
+.cartaEditar input[type="number"] {
+    width: 100%;
+    /* Ancho completo para los inputs */
+    padding: 10px;
+    /* Espaciado interno */
+    border: 1px solid #ddd;
+    /* Borde gris claro */
+    border-radius: 4px;
+    /* Bordes redondeados */
+    box-sizing: border-box;
+    /* Incluir padding y border en el tamaño total */
+}
+
+.cartaEditar button {
+    background-color: #007bff;
+    /* Color de fondo del botón */
+    color: white;
+    /* Color del texto */
+    padding: 10px 15px;
+    /* Espaciado interno del botón */
+    border: none;
+    /* Sin borde */
+    border-radius: 4px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cambiar cursor al pasar sobre el botón */
+    font-size: 1em;
+    /* Tamaño de fuente */
+    transition: background-color 0.3s ease;
+    /* Transición suave al cambiar color */
+}
+
+.cartaEditar button:hover {
+    background-color: #0056b3;
+    /* Color de fondo al pasar el ratón */
+}
+
+.cartaEditar a {
+    display: inline-block;
+    /* Hacer que el enlace se comporte como un bloque */
+    margin-top: 10px;
+    /* Espaciado superior */
+    color: #007bff;
+    /* Color del enlace */
+    text-decoration: none;
+    /* Sin subrayado */
+    font-weight: bold;
+    /* Negrita para el enlace */
+}
+
+.cartaEditar a:hover {
+    text-decoration: underline;
+    /* Subrayar el enlace al pasar el ratón */
+}
+
+.boton-cancelar {
+    display: inline-block;
+    /* Para que el enlace se comporte como un botón */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    margin: 5px 0;
+    /* Espaciado externo */
+    background-color: #dc3545;
+    /* Color de fondo */
+    color: white;
+    /* Color del texto */
+    border: none;
+    /* Sin borde */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    text-decoration: none;
+    /* Sin subrayado */
+    font-weight: bold;
+    /* Texto en negrita */
+    transition: background-color 0.3s ease;
+    /* Efecto de transición */
+}
+
+.boton-cancelar:hover {
+    background-color: #c82333;
+    /* Color de fondo al pasar el ratón */
+    cursor: pointer;
+    /* Cambiar el cursor al pasar sobre el botón */
+}

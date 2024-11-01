@@ -1,0 +1,118 @@
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #007bff;
+    margin-top: 20px;
+}
+
+/* Estilo del contenedor de la tabla */
+.contenedor-tabla,
+.contenedor-tabla-editar {
+    max-width: 900px;
+    /* Ajuste el ancho máximo según sea necesario */
+    margin: 50px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Estilo de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead th {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+}
+
+tbody td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+    /* Fila par con fondo gris claro */
+}
+
+tbody tr:hover {
+    background-color: #e9ecef;
+    /* Cambia el fondo de la fila al pasar el ratón */
+}
+
+/* Estilo del formulario de edición */
+form {
+    margin-top: 30px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo de los labels */
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #333;
+    font-size: 1em;
+}
+
+.rol {
+    width: 90%;
+    height: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f4f4f4;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: calc(100% - 22px);
+    /* Asegura que el input tenga un ancho completo */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+    /* Color al pasar el ratón */
+}
+
+a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+    /* Subrayar al pasar el ratón */
+}
