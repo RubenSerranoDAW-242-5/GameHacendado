@@ -74,7 +74,7 @@ function EnviarCorreo($email,$nombre)
             margin-top: 20px;
             padding: 12px 24px;
             background-color: #007bff;
-            color: #ffffff;
+            color: white;
             text-decoration: none;
             border-radius: 5px;
             font-size: 16px;
