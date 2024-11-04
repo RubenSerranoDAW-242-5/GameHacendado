@@ -28,7 +28,8 @@ if (
             $bd->desconectar();
 
             if ($res) {
-                header("Location:login.php");
+                include "../phpMailer/Correo.php";
+                EnviarCorreo($email,$nombre);
             } else {
                 $errorMessage = "Error insert en la base de datos";
             }
