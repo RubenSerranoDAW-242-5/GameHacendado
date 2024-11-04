@@ -25,27 +25,6 @@ $rutaSeparada = explode('/', trim($ruta, '/'));
 
         window.location.href = baseUrl;
     }
-
-    // $(document).ready(function() {
-    //     $('#textoBusqueda').on('input', function() {
-    //         var textoBusqueda = $(this).val(); // Obtiene el texto del input
-    //         if (textoBusqueda.length > 2) { // Solo busca si el texto tiene más de 2 caracteres
-    //             $.ajax({
-    //                 url: 'busqueda.php', // El archivo PHP que procesará la búsqueda
-    //                 method: 'POST',
-    //                 data: {
-    //                     metodoPost: 'busqueda',
-    //                     textoBusqueda: textoBusqueda
-    //                 },
-    //                 success: function(data) {
-    //                     $('#resultadosBusqueda').html(data); // Muestra los resultados
-    //                 }
-    //             });
-    //         } else {
-    //             $('#resultadosBusqueda').html(''); // Limpia los resultados si el texto es corto
-    //         }
-    //     });
-    // });
 </script>
 <header id="cabezera">
 
